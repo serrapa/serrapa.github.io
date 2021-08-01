@@ -164,6 +164,7 @@ exclude:
   - gulpfile.js
   - node_modules
   - '*.json'
+  - assets/img/favicons
 
 jekyll-archives:
   enabled: [categories, tags]
@@ -176,3 +177,7 @@ jekyll-archives:
 
 # Outdated configuration warning
 outdated: '-- Missing configuration options! --'
+
+
+keep_files:
+  - assets/img/favicons
