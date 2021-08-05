@@ -24,7 +24,7 @@ timezone: Europe/Rome
 
 title: Paolo Serra                          # the main title
 
-tagline: { work : Penetration Tester at  @NTTDATA_IT, love : Artificial Intelligence Lover, life : Willing to automate my life in Python} # it will display as the sub-title
+tagline: { work : Penetration Tester at  @NTTDATA_IT, love : Artificial Intelligence Lover,  life : Willing to automate my life in Python } # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   A minimal, portfolio, sidebar,
