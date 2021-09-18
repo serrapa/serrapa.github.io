@@ -1,5 +1,5 @@
 ---
-title: Master OAuth2 Attacks Skills - Part 1 - Client
+title: OAuth Security and Testing Guide - Client
 author: Paolo Serra
 date: 2021-08-03 10:00:00
 categories: [Topic, OAuth2]
@@ -8,7 +8,8 @@ toc: true
 
 # Intro
 
-This is the first articles of a new serie I wanted to start. We are going to see the attack from against the client application in the authorization grant flow.
+The OAuth ecosystem is complex. As a developer, you should follow the OAuth core specification as best as you can. Additionally, some tutorials from the OAuth community may be helpful to get into the topic.  If you are particularly keen on security, there is the "OAuth 2.0 Threat Model and Security Considerations specification" ([RFC 6819](https://datatracker.ietf.org/doc/html/rfc6819)). That is a useful resource to improve your knowledge and understanding of how you can properly carry on attacks or defend OAuth entities.
+
 
 
 ---
