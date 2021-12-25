@@ -6,8 +6,6 @@ categories: [Topic, Mobile Security]
 toc: true
 ---
 
-Test
-
 ## Intro
 In this article we are going to focus on the penetration tests when facing mobile applications built with the most common frameworks. It might seem you have to apply the same techniques when you are fighting against native applications, but there are some concepts a little bit different that can drive you crazy or, especially, into the wrong direction.
 
