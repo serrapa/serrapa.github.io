@@ -7,9 +7,9 @@ toc: true
 ---
 
 ## Intro
-In this article we are going to focus on the penetration tests when facing mobile applications built with the most common frameworks. It might seem you have to apply the same techniques when you are fighting against native applications, but there are some concepts a little bit different that can drive you crazy or, especially, into the wrong direction.
+In this article we are going to focus on the penetration tests when facing mobile applications built with the most common frameworks. It might seem you have to apply the same techniques when you are fighting against native applications, but there are some concepts a little bit different that can drive you crazy and into the wrong direction.
 
-Here is a list of the frameworks I would like to talk about: *Xamarin, Flutter, Cordova, PhoneGap, Ionic, React Native, IBM Worklight, NativeScript, Appcelerator, Corona, Qt, Sencha, Unity3D, 5App, Framework7, etc...*
+Here is a list of the frameworks I would like to talk about (I will try to keep the list updated): *Xamarin, Flutter, Cordova, PhoneGap, Ionic, React Native, IBM Worklight, NativeScript, Appcelerator, Corona, Qt, Sencha, Unity3D, 5App, Framework7, etc...*
 
 
 |                     |Xamarin                      |Flutter                |Ionic                    |React Native               |NativeScript             |
@@ -24,24 +24,27 @@ Here is a list of the frameworks I would like to talk about: *Xamarin, Flutter, 
 
 ### Network Communications
 To discover and exploit vulnerabilities related to the network traffic, an attacker can use a local proxy to intercept communications between the mobile app and the server. A proxy allows the attacker to inspect, modify, repeat and understand how the mobile app communicates with the server and how the server might react to unexpected or untrusted data.
-Most modern frameworks provide built-in solutions to limit an attacker’s ability to intercept communications with a proxy. These protections include Certificate pinning and/or ignoring system proxy settings. As is the case with all client-side mobile app protections however, these protections can be bypassed if an attacker has full control over the device.  
+Most modern frameworks provide built-in solutions to limit an attacker’s ability to intercept communications with a proxy. Manly, these protections include Certificate pinning and/or ignoring system proxy settings. As is the case with all client-side mobile app protections however, these protections can be bypassed if an attacker has full control over the device.  
 
-**NB**: *In this guide, I am not going to explain how to install your proxy's certificate in Android or iOS because Google is your friend so not being lazy and type some words, it can take only few seconds, did you know that?*
+**NB**: *In this guide, I am not going to explain how to install your proxy's certificate in Android or iOS. Google is your friend so not being lazy and google it.*
 
 
 ---
 
 ## Native Applications
-[Cosa è]
+A Native app is created for a specific platform, usually Android or iOS, as these are the most popular ones. Developers use a programming language that suits a particular platform: Java and Kotlin for Android, Swift and Objective-C for iOS. From a security perspective, there aren't so many differences with the hybrid solutions, you may find the same vulnerability in both of them. Just keep in mind that hybrid is more like a web based environment to attack (Webviews' fault).
+
 ### Detecting app
 
 Android
-: .....
+: Every app (native or not) has a codebase written in Java/Kotlin, so don't rely the detection on it. Actually, there are some elements that help you to discover how the app has been built with:
+- ***Check through Developer Options and layout bounds***: if it is a native app, it will show rectangles in each activity that you open, while if it's a hybrid app, it will show a cross line and no rectangles. Consider that this rule is not valid for all frameworks, because some of them convert the graphic stuff in native ones.
+- ***Use Webview to Check***: a method to check if the app is native or hybrid is by using the WebView method. If an app implements WebViews, most of the time for each screen, it may be hybrid (**uiautomatorviewer** is your friend). Keep in mind that's not always true: native apps can take advantage of a WebView as well.  
+- ***Look up explicit frameworks elements inside the apk***: personally my favourite one.
 
 iOS
-: .....
+: Since I have never found a iOS-related way to detect the type of an app yet, it remains for us to ***Look up explicit frameworks elements inside the ipa***.
 
-[Come riconoscere queste apps]
 
 ### Intercepting Traffic
 Android
@@ -49,13 +52,13 @@ Android
 - *Rooted & Unrooted device*: patch the apk to accept "user" certificates
 - *Rooted device*: use ProxyDroid App
 
->When you are setting your test environment, it is very important to understand which solution you are adopting and what are the differences between each others. You might come up with the idea where the methods which work for both rooted and unrooted are the best ones, but what about ignoring the proxy settings, network security config integrity checks or any other mechanisms that make your life worst? Under the woods there are non-identical methods to redirect the traffic to another host (i.e. a proxy) and for this reason there is a difference between the **local proxy setting** and **ProxyDroid**. Let's start from this: the first one doesn't require a rooted device, while ProxyDroid does. Although the expected behaviour of these two solutions is the same, they acts in different ways. Proxydroid uses IPtables (kernel level) to redirect the traffic and that's why it needs root.
+>When you set your test environment, it is very important to understand which solution you want to adopt and what are the differences among all. You might come up with the idea where the methods which work for both rooted and unrooted are the best ones, but what about ignoring the proxy settings, network security config integrity checks or any other mechanisms that make your life worst during a pentest? Under the woods there are non-identical methods to redirect the traffic to another host (i.e. a proxy) and for this reason there is a difference between the **local proxy setting** and **ProxyDroid**. Let's start from this: the first one doesn't require a rooted device, while ProxyDroid does. Although the expected behaviour of these two solutions is the same, they acts in different ways: Proxydroid uses IPtables (kernel level) to redirect the traffic and that's why it needs root, whereas the local proxy setting sets a proxy host and forward to it all communication that are under these settings.
 
-Once you have set up one of the solutions listed above check [here](https://blog.nviso.eu/2020/11/19/proxying-android-app-traffic-common-issues-checklist/) to be sure you are not mad and doing things as they have to be done.
+Once you have set up one of the solutions listed above, check [here](https://blog.nviso.eu/2020/11/19/proxying-android-app-traffic-common-issues-checklist/) to be sure you are not mad and everything is gonna work.
 
 iOS
 : - *Jailbroken & Unjailbroken device*: use the local proxy settings (WiFi settings)
-- *Jailbroken & Unjailbroken device*: set up a VPN Server, download OpenVPN on the device
+- *Jailbroken & Unjailbroken device*: set up a VPN Server, download OpenVPN Client on the device
 
 *iOS doesn't support iptables at kernel level, so either you change the iOS kernel (good luck) or you are screwed.*
 
@@ -82,7 +85,7 @@ iOS
 
 Android
 : The code base will be mostly Java or Kotlin so this makes easier to read and statically analyze the application and its source code, unless obfuscation techniques have been implemented. Sometimes you can also deal with applications that use NDK, a toolset that lets you implement parts of your app in native code, using languages such as C and C++.
-In general, decompile the Android application is not very difficult (some tools does it for you: [jadx-gui](https://github.com/skylot/jadx) or [jd-gui](http://java-decompiler.github.io/)).
+In general, decompiling the Android application is not very difficult (some tools does it for you: [jadx-gui](https://github.com/skylot/jadx) or [jd-gui](http://java-decompiler.github.io/)).
 
 iOS
 : iOS is the funny part for the Reverse Engineering.
@@ -90,7 +93,7 @@ iOS
 ---
 
 ## Xamarin
-Xamarin, which is a Microsoft product, provides a single platform to develop one application for multiple platforms with **.NET** and **C#** – iOS and Android in most cases. As it is a framework, it likes getting us more frustrated, but how? Simply ignoring system proxy settings by default. Additionally, Microsoft has already implemented secure coding practices in the Xamarin framework. As such, applications developed with this framework inherit these security controls (uff..). This makes Xamarin–based applications arguably more secure than applications developed from scratch using traditional or no frameworks. Since Xamarin has full access to native APIs and toolkits used by both iOS and Android applications, it not only saves developers time in building and maintaining the application, but also help them in achieving near-native look and performance.
+Xamarin, which is a Microsoft product, provides a single platform to develop one application for multiple platforms with **.NET** and **C#** – iOS and Android in most cases. As it is a framework, it likes getting us more frustrated, but how? Simply ignoring system proxy settings by default. Additionally, Microsoft has already implemented secure coding practices in the Xamarin framework. As such, applications developed with this framework inherit these security controls (uff..). This makes Xamarin–based applications arguably more secure than applications developed from scratch using traditional or no frameworks. Since Xamarin has full access to native APIs and toolkits used by both iOS and Android applications, it doesn't only save developers time in building and maintaining the application, but also help them in achieving near-native look and performance.
 
 ### Detecting app
 Android
@@ -160,10 +163,10 @@ Android
   - the entry ***flutter.embedding*** in the Android Manifest
   - the folder ***io.flutter***
   - Shared Object files (***libflutter.so***) in the **lib** directory
-  - the release applications have the following files:
+  - release-mode applications have the following files:
     - /resources/lib/arm-64-v8a/libflutter.so
     - /resources/lib/arm-64-v8a/libapp.so
-  - the debug applications have the following files:
+  - debug-mode applications have the following files:
     - /resources/assets/flutter_assets/kernel_blob.bin
 
 iOS
@@ -308,7 +311,8 @@ iOS
 ---
 
 ## React Native
-React Native is a cross-platform solution that allows writing native apps using React (JavaScript or TypeScript). The native app executes JavaScript code with the native or custom JavaScript engine in a separate thread. Native JS engine uses the source code stored in .jsbundle file, while custom JS engines can have various behaviours.
+React Native is a cross-platform solution that allows writing native apps using React (JavaScript or TypeScript). The native app executes JavaScript code with the native or custom JavaScript engine in a separate thread. Native JS engine uses the source code stored in the *.jsbundle* file, while custom JS engines can have various behaviours.
+
 ### Detecting app
 All applications (both Android and iOS) developed with React Native have some fingerprints that render themselves easy to recognize:
 
