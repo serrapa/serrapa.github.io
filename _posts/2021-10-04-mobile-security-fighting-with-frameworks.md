@@ -6,8 +6,6 @@ categories: [Topic, Mobile Security]
 toc: true
 ---
 
-test
-
 ## Intro
 In this article we are going to focus on the penetration tests when facing mobile applications built with the most common frameworks. It might seem you have to apply the same techniques when you are fighting against native applications, but there are some concepts a little bit different that can drive you crazy and into the wrong direction.
 
@@ -267,7 +265,19 @@ iOS
 ---
 
 ## Ionic
-[Cosa è]
+Ionic is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies — HTML, CSS, and JavaScript — with integrations for popular frameworks like Angular, React, and Vue. Actually, if you don't want to mess things up you can move alone with a simple *script include* without using any frontend framework. That means that if you don't find any references to Angular, React or Vue, there might be more vulnerabilities to discover because it's all up to developers (blink!).  You may wonder how exactly Ionic works, but in nutshell it uses Capacitor or Cordova to deploy natively, because they give access to Native SDKs, and Web Views (provided by both iOS and Android SDKs) to render any Ionic app. 
+
+|                                           | Ionic                                                    |
+|:------------------------------|:-----------------------------------------|
+|**Code**                             |HTML, CSS, TypeScript, Javascript    |
+|**Compilation iOS**          |JIT + WKWebView                              |
+|**Compilation Android**  |JIT                                                        |
+|**UI Rendering**               |HTML, CSS                                           |
+|**UI Engineering**             |Code Sharing for the cost of native experience   |
+
+>***Capacitor*** is an open source *cross-platform app runtime* (like Cordova) that allows web-based apps to run natively on iOS, Android, Electron and the Web. Capacitor was created and is actively developed/supported by Ionic (while Cordova by Apache). Although they are similar to each other (think that Capacitor has been built on the fundamentals of Cordova), there are some differences that a pentester should know about:
+- **Native Project Management**: when developers adotp Capacitor, configuration changes are made by editing the appropriate platform-specif configuration files directly, such as AndroidManifest.xml and Info.plist. 
+- **Plugin Management**: Cordova copies plugin source code to the app before building, while in Capacitor all plugins are build as *frameworks*  on iOS and *libraries* on Android. Additionally, Capacitor doesn't modify native source code, in fact, any necessary native project settings (such as permissions on AndroidManifest and Info.plist) must be added manually. One major difference is the way plugins handle the JavaScript code they need in order to be executed from the WebView. Cordova requires plugins to ship their own JavaScript and manually call *exec()*. Capacitor, in contrast, registers and exports all JavaScript for each plugin based on the native methods it detects at runtime, so all plugin methods are available as soon as the WebView loads.
 
 ### Detecting app
 
@@ -314,6 +324,14 @@ iOS
 
 ## React Native
 React Native is a cross-platform solution that allows writing native apps using React (JavaScript or TypeScript). The native app executes JavaScript code with the native or custom JavaScript engine in a separate thread. Native JS engine uses the source code stored in the *.jsbundle* file, while custom JS engines can have various behaviours.
+
+|                                           | React Native                                     |
+|:------------------------------|:-----------------------------------------|
+|**Code**                             |Javascript  + Java / Objective-C / Swift |
+|**Compilation iOS**          |Interpreter                             |
+|**Compilation Android**  |JIT                                                        |
+|**UI Rendering**               |Native UI Controllers                                           |
+|**UI Engineering**            |Customization with built-in UI components |
 
 ### Detecting app
 All applications (both Android and iOS) developed with React Native have some fingerprints that render themselves easy to recognize:
@@ -438,6 +456,10 @@ Xamarin:
 
 Flutter:
 - [https://blog.nviso.eu/2019/08/13/intercepting-traffic-from-android-flutter-applications/](https://blog.nviso.eu/2019/08/13/intercepting-traffic-from-android-flutter-applications/)
+
+Ionic & Cordova:
+- [https://ionicframework.com/docs/](https://ionicframework.com/docs/)
+- [https://ionic.io/resources/articles/what-is-apache-cordova](https://ionic.io/resources/articles/what-is-apache-cordova)
 
 React Native:
 - [https://www.cossacklabs.com/blog/react-native-app-security.html](https://www.cossacklabs.com/blog/react-native-app-security.html)
