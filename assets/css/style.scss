@@ -46,7 +46,7 @@ $tab-count: {{ site.tabs | size | plus:1 }}; //plus 1 for home tab
 }
 
 /* --- Change for the Highlight color --- */
-/* Uncomment for DARK THEME */
+// Uncomment for DARK THEME 
 // ::-moz-selection { /* Code for Firefox */
 //   color: white;
 //   background: var(--toc-highlight);
