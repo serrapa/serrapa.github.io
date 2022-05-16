@@ -10,6 +10,8 @@ toc: true
 
 The OAuth ecosystem is complex. As a developer, you should follow the OAuth core specification as best as you can. Additionally, some tutorials from the OAuth community may be helpful to get into the topic.  If you are particularly keen on security, there is the "OAuth 2.0 Threat Model and Security Considerations specification" ([RFC 6819](https://datatracker.ietf.org/doc/html/rfc6819)). That is a useful resource to improve your knowledge and understanding of how you can properly carry on attacks or defend OAuth entities.
 
+The following paragraphs describe the theory behind of the most attacks and vulnerabilities about OAuth scenarios, so no pratical and technical details will be covered. 
+
 Being said that, let's dive into the attacks against OAuth Client
 
 ---
@@ -38,7 +40,7 @@ The typical scenario for this attack requires that the target website allows use
 
 
 *3° Scenario*
-: Register a new account on the Resource Server with the victim’s email (even if email verification is required), then log in to the target website via OAuth with the account just created (with the victim’s email) and see what the target website does. Obviously, the victim must have already a registered account on the website and signed up via email. If you’re lucky, it logs you in the victim's account.  
+: Register a new account on the OAuth Provider with the victim’s email (even if email verification is required), then log in to the target website via OAuth with the account just created (with the victim’s email) and see what the target website does. Obviously, the victim must have already a registered account on the website and signed up via email. If you’re lucky, it logs you in the victim's account.
 
 | Functional Requirements             |
 |:------------------------------------|
@@ -55,10 +57,11 @@ The typical scenario for this attack requires that the target website allows use
 
 - 1° Scenario: [https://hackerone.com/reports/1074047](https://hackerone.com/reports/1074047)
 - 2° Scenario: [https://0xgaurang.medium.com/case-study-oauth-misconfiguration-leads-to-account-takeover-d3621fe8308b](https://0xgaurang.medium.com/case-study-oauth-misconfiguration-leads-to-account-takeover-d3621fe8308b)
+- 3° Scenario: [https://portswigger.net/web-security/oauth#unverified-user-registration](https://portswigger.net/web-security/oauth#unverified-user-registration)
 
 ---
 
-## Cross Site Request Forgety (CSRF)
+## Cross Site Request Forgery (CSRF)
 
 The *state* parameter is optional in OAuth, but if you care about security, it becomes mandatory. When we talk about CSRF in OAuth, there are two different impacts:
 
@@ -74,7 +77,7 @@ Both scenarios required the validation of the *state* . This mitigation must be 
 
 #### Reference
 
->to be add
+[https://portswigger.net/web-security/oauth#flawed-csrf-protection](https://portswigger.net/web-security/oauth#flawed-csrf-protection)
 
 ---
 
@@ -111,7 +114,7 @@ Even here there are different scenarios to consider:
 
 #### Reference
 
->to be add
+[https://portswigger.net/web-security/oauth#leaking-authorization-codes-and-access-tokens](https://portswigger.net/web-security/oauth#leaking-authorization-codes-and-access-tokens)
 
 ---
 
@@ -122,7 +125,7 @@ Even here there are different scenarios to consider:
 
 ### Defence
 
->to be done
+Force the use of the response_code wanted
 
 #### Reference
 
@@ -132,21 +135,29 @@ Even here there are different scenarios to consider:
 
 ## Improper Impletation Implicit Flow
 
->to be done
+Let's start with the fact that the Implicit flow should be mainly used for single-page applications, but it is also often used in classic client-server web applications.  
+In this flow, the access token is sent from the OAuth service to the client application via the user's browser as a URL fragment. The client application then accesses the token using JavaScript. Here we need to consider what the application does:
+
+- if the application wants to maintain the session after the user closes the page, it needs to store the current user data (normally a user ID and the access token) somewhere and that could lead to a security problem. Typically, the client application will often submit this data to the server in a POST request and then assign the user a session cookie. In this scenario, the server does not have any secrets or passwords to compare with the submitted data, which means that it is implicitly trusted. As a result, this behaviour can lead to a serious vulnerability if the client application doesn’t properly check that the access token matches the other data in the request. At this point, an attacker can simply change the parameters sent to the server to impersonate any user.
+
 
 ### Defence
-
->to be done
+Check that the access token matches the other data in the request and tie it to the user’s data and the session cookie.
 
 #### Reference
 
->to be add
+[Academy Portswigger - OAuth](https://portswigger.net/web-security/oauth#improper-implementation-of-the-implicit-grant-type)
  
 ---
 
 ## Token Stealing Vectors
 
 >to be done
+-  Open Redirect
+- Javascript that handles query parameters and URL fragments 
+- XSS
+- HTML Injection
+- Path Traversal + other vulnerabilities on another page
 
 ### Defence
 
@@ -162,7 +173,7 @@ Even here there are different scenarios to consider:
 
 | Limitation                          |
 |:------------------------------------|
-| Only tested for Facebook              |
+| Only tested for Facebook            |
 | Need to have access to the token    |
 
 From Facebook Documentation:
@@ -182,15 +193,20 @@ Access tokens should never be assumed to be from the app that is using them. The
 
 ## Token Leakage 
 
-As the attacker you cannot see what the Client does server side, but if you somehow find out the token is sent to the Resource Provider via a GET request, boy there is a Leakage since the param is certainly log somewhere where it shouldn't be.
+Tokens and codes are prone to leakage and ensuring that's not happen is not as obvious as it could be. Someting it may be intentionally or unintentionally:
+
+- as the attacker you cannot see what the Client does server side, but somehow if you find out the token is sent to the Resource Provider via a GET request, there is a Leakage since the param is certainly logged somewhere where it shouldn't be. 
+
+- they may be leaked via *Referer* header when external images, scripts, or CSS content is loaded. 
+
+- It can be included in the dynamically generated JavaScript files that are executed from external domains via *<script>* tags
 
 ### Defence
-
-Always send sensitive information in the ***body*** of a request.
+Always send sensitive information in the ***body*** of a request and don't include them in the Referer header. It is also important to not include them in the dynamically generated JavaScript files.
 
 #### Reference
 
->to be add
+[https://portswigger.net/web-security/oauth/preventing](https://portswigger.net/web-security/oauth/preventing)
 
 ---
 
