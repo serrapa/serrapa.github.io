@@ -10,9 +10,11 @@ toc: true
 
 There are many resources about Mobile security and how to conduct tests in native applications, but things are changing so quickly these days, and the Mobile world is offering different solutions and technologies to develop applications. We must all keep up with them.
 
-In this article, we will concentrate on penetration tests performed against mobile applications built with the most common frameworks. When fighting against native applications, it may appear that you should use the same techniques and approaches, but there are some slightly different concepts that can drive you insane and in the wrong direction.
+During my first mobile assessments, I spent a lot of time troubleshooting issues and figuring out why some things worked in some applications but not others. Finally, I realized that the issue was often the framework on which the application was built. It might seem obvious, but it wasn't for me at the time, which is why I decided to write this article. My goal is just to give you a panoramic of the most popular mobile development methods and some tips on how to handle mobile applications built using these frameworks.
 
-Here is a list of the frameworks I'd like to explore (I will try to keep the list updated), but only some of them will be so far: *Xamarin, Flutter, Cordova, PhoneGap, Ionic, React Native, IBM Worklight, NativeScript, Appcelerator, Corona, Qt, Sencha, Unity3D, 5App, Framework7
+Specifically, we will concentrate on how to approach a **penetration test** performed against mobile applications built with the most common frameworks. When fighting against native applications, it may appear that you should use the same techniques and approaches, but there are some slightly different concepts that can drive you insane and in the wrong direction.
+
+Here is a list of the frameworks I'd like to explore (I will try to keep the list updated), but only some of them will be so far: *Xamarin, Flutter, Cordova, PhoneGap, Ionic, React Native, IBM Worklight, NativeScript, Appcelerator, Corona, Qt, Sencha, Unity3D, 5App, Framework7*
 
 
 |                     |Xamarin                      |Flutter                |Ionic                    |React Native               |NativeScript             |
@@ -84,7 +86,8 @@ iOS
 ### Debugging
 
 Android
-: You may want to debug the application during a penetration test, but because it was built in release mode (you rarely receive a debug mode apk), there is a good chance that the `debuggable` flag in the Manifest is not set to true. Nothing says you can debug the application in this case, so why not force it to be debuggable? The magic words are ***patching the apk***. You can do it yourself (if you are a noob, I recommend this solution so that you can understand how the entire operation should be done) or use a tool that automates everything.
+:  - **Debug mode**: In this case, the app is already built to be debuggable, thus there is nothing special to do: Use Android Studio, Jadx Debugger, or any other debugging tool
+- **Release Mode**: You may want to debug the application during a penetration test, but because it was built in release mode (you rarely receive a debug mode apk), there is a good chance that the `debuggable` flag in the Manifest is not set to true. Nothing says you can debug the application in this case, so why not force it to be debuggable? The magic words are ***patching the apk***. You can do it yourself (if you are a noob, I recommend this solution so that you can understand how the entire operation should be done) or use a tool that automates everything.
 
 iOS
 : LLDB + debugserver
@@ -107,7 +110,7 @@ Xamarin, which is a Microsoft product, provides a single platform to develop one
 ### Detecting app
 
 Android
-: To recognize whether an Android app has been built using Xamarin or not is pretty straighforward. Inside the structure of the apk (**apktool** is your friend) there is a lot of stuff but that help us is the directory containing the assemblies. In fact, going there you will find certain assemblies related to the Mono engine, a free and open-source .NET Framework-compatible software framework now being led by Xamarin that can be run on many software systems.
+: It is rather simple to determine whether an Android app was created with Xamarin or not. There is a lot of data inside the apk structure (**apktool** is your friend), but the directory holding the assemblies is what we need.. In fact, going there you will find certain assemblies related to the Mono engine, a free and open-source .NET Framework-compatible software framework now being led by Xamarin that can be run on many software systems.
 Let's see some examples:
 
 |Assembly             |Description                                                                   |
@@ -123,18 +126,17 @@ Anyway, [here](https://docs.microsoft.com/en-us/xamarin/cross-platform/internals
 In addition, the ***lib*** directory contains additional Xamarin-related references, such as native shared libraries. These are often directed to the monodroid engine, `libmonodroid.so` , and maybe some other plugins used by the developer.
 
 iOS
-: You cannot decompile an iOS application like Android. iOS apps are compiled directly to machine code, with an aggressive optimization pass that tends to destroy a lot of the structure of the original code. To extract [continua]
+: You cannot decompile an iOS application like Android. iOS apps are compiled directly to machine code, with an aggressive optimization pass that tends to destroy much of the original code's structure. To extract [continua]
 
 ### Intercepting Traffic
 
-Since any local proxy setting is ignored by Xamarin, the only way to intercept the traffic generated by an application is setting up a VPN Server in another machine, connect the device to it (i.e OpenVPN) and enable IPtables on the remote machine to redirect all the traffic to burp suite (it can stay on the same machine or another one, it doesn't matter at all).
-Achieving it for Android and iOS is not the same.
+Since any local proxy setting is ignored by Xamarin, the only way to intercept the traffic generated by an application is setting up a VPN Server in another machine, connect the device to it (i.e OpenVPN) and enable IPtables on the remote machine to redirect all the traffic to **Burp Suite** (it can stay on the same machine or another one, it doesn't matter at all). It is not the same to achieve it on Android and iOS.
 
 Android
 : ProxyDroid is enough (so a VPN Server is not needed)
 
 iOS
-: follow this [guide](https://blog.nviso.eu/2020/06/12/intercepting-flutter-traffic-on-ios/), even though it is for flutter, it works well; you need to create a VPN Server. Otherwise, here another [guide](https://triskelelabs.com/intercepting-xamarin-mobile-app-traffic-2/) for Xamarin.
+: Follow this [guide](https://blog.nviso.eu/2020/06/12/intercepting-flutter-traffic-on-ios/), even though it is for flutter, it works well; you need to create a VPN Server. Otherwise, here another [guide](https://triskelelabs.com/intercepting-xamarin-mobile-app-traffic-2/) for Xamarin.
 
 ### Certificate Pinning
 
@@ -199,7 +201,7 @@ Android
 : ProxyDroid is enough (a VPN Server is not needed)
 
 iOS
-: follow this [guide](https://blog.nviso.eu/2020/06/12/intercepting-flutter-traffic-on-ios/)
+: Follow this [guide](https://blog.nviso.eu/2020/06/12/intercepting-flutter-traffic-on-ios/)
 
 
 ### Certificate Pinning
@@ -275,14 +277,8 @@ iOS
 [Come si debugga l'app]
 
 ### Reverse Engineering
-
-Android
-: .....
-
-iOS
-: .....
-
-[Come fare la reverse]
+ 
+ It's Javascript. Dive deeply into the source code.
 
 ---
 
@@ -327,24 +323,19 @@ iOS
 [Come dovrebbe essere implementato il pinning, quali sono le soluzioni comuni e come verificarlo(??).]
 
 ### Debugging
+We mentioned Web Technologies, therefore what are the best tools for debugging them? **Chrome DevTools** is the answer. Because we are dealing with an Ionic App, it is evident that the application functionality lies within the Javascript code; thus, we must shift our focus to that side. 
 
 Android
-: .....
+: - `On Chrome` (**Debug & Release Mode**) Go to *Settings > Developer Options* (make sure they're enabled first) and ensure that the *developer options* switch is toggled on. Scroll down to *USB Debugging* and ensure that it is also enabled. Open the Chrome browser and navigate to the URL `chrome://inspect/#devices`. Once a WebView is created or the app starts, something will shows up on the page. Just click on *"inspect"*.
 
 iOS
-: .....
+: - `On Safari` (**Debug & Release Mode**) First, on the iOS device, enable **Web Inspector** from *Settings > Safari > Advanced*. Next, open Safari on a Mac then enable **Show Develop menu in menu bar** under *Safari > Preferences > Advanced*. Within Safari, select Develop in the toolbar. In the dropdown menu options, you should see the name of your device and app. Hover over the app name and click on localhost.
+- `On Chrome` : use a [WebKit proxy](https://github.com/google/ios-webkit-debug-proxy)
 
-[Come si debugga l'app]
 
 ### Reverse Engineering
-
-Android
-: .....
-
-iOS
-: .....
-
-[Come fare la reverse]
+ 
+ It's Javascript. Dive deeply into the source code.
 
 ---
 
@@ -370,7 +361,7 @@ Android
 - `com.facebook.react.devsupport.DevSettingsActivity`: an activity
 
 iOS
-: - `main.jsbundle`: a file in the *Payload* directory inside the app folder
+: - `main.jsbundle`: a file in the ***Payload*** directory inside the app folder
 - inside the ***assets*** directory there might be some references to React, for example ***node_modules/@react-navigation*** or ***node_modules/@react-native-****
 
 >*the **bundle** file: it's the "Javascript". In development the bundle likely will come from your *react-native start* development server. That way if your code is changed the server will send a request to the client, through a websocket, to download the new code or update the code on the fly. So, you could say the bundle is dynamically generated from your source code. In production you probably want to use an offline bundle so that your code is already on the device and does not need to be downloaded. [Cit.](https://stackoverflow.com/questions/41960891/what-is-react-natives-bundle-and-its-purpose)
@@ -400,14 +391,16 @@ iOS
 ### Debugging
 
 Android
-: .....
+: - **Debug Mode**: [React Native Debugger](https://reactnative.dev/docs/debugging)
 
 iOS
-: .....
+: - **Debug Mode**: [React Native Debugger](https://reactnative.dev/docs/debugging)
+
 
 [Come si debugga l'app]
 
 ### Reverse Engineering
+Most of the time, the app will be optimized using Meta's Hermes engine, an open-source JavaScript engine optimized for React Native. This engine is not very pleasant for us because, in order to enhance efficiency, it converts Javascript directly into bytecode at build time. That means we'll have to deal with things not particulary similar to readable code.
 
 Android
 : .....
