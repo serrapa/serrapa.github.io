@@ -175,6 +175,7 @@ Check that the access token matches the other data in the request and tie it to 
 |:------------------------------------|
 | Only tested for Facebook            |
 | Need to have access to the token    |
+| Need to have an external app that uses the same OAuth Provider    |
 
 From Facebook Documentation:
 > To understand how this happens, imagine a native iOS app that wants to make API calls, but instead of doing it directly, communicates with a server owned by the same app and passes that server a token generated using the iOS SDK. The server would then use the token to make API calls. The endpoint that the server uses to receive the token could be compromised and others could pass access tokens for completely different apps to it. This would be obviously insecure
