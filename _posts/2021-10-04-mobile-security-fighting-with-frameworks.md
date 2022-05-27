@@ -4,7 +4,16 @@ author: Paolo Serra
 date: 2021-10-04 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
+
+image:
+  src: /images/wallpapers/onepiece.webp
+  width: 1000   # in pixels
+  height: 300   # in pixels
+  alt: Mmh.. there's no image
 ---
+
+![Device rooted/jailbroken](/images/device_rooted.png){: .shadow .normal width="35" height="35" }    Device rooted/jailbroken
+![Device](/images/device.png){: .shadow .normal width="35" height="35" }    Device
 
 ## Intro
 
@@ -20,8 +29,8 @@ Here is a list of the frameworks I'd like to explore (I will try to keep the lis
 |                     |Xamarin                      |Flutter                |Ionic                    |React Native               |NativeScript             |
 |:--------------------|:----------------------------|:----------------------|:------------------------|:--------------------------|:------------------------|
 |**Code**             |C#                           |Dart                   |HTML,CSS,TypeScript,Javascript                |Javascript                 |Javascript/TypeScript    |
-|**Compilation iOS**  |AOT                          |xxxxx                  |JIT+WKWebView            |Interpreter                |Interpreter              |
-|**Compilation Android**|JIT/AOT                      |xxxxx                  |JIT                      |JIT                        |JIT                      |
+|**Compilation iOS**  |AOT                          |AOT                  |JIT+WKWebView            |Interpreter                |Interpreter              |
+|**Compilation Android**|JIT/AOT                      |AOT                  |JIT                      |JIT                        |JIT                      |
 |**UI Engineering**   |Native / Code Sharing for the cost of native experience|xxxxx                  |Code Sharing for the cost of native experience|Customization with built-in UI components |Code Sharing for the cost of native experience|
 
 
@@ -40,6 +49,14 @@ Like Android and iOS themself, also modern frameworks provide built-in solutions
 
 A Native app is created for a specific platform, usually Android or iOS, as these are the most popular ones. Developers use a programming language that suits a particular platform: Java and Kotlin for Android, Swift and Objective-C for iOS. From a security standpoint, there aren't many differences with the hybrid solutions; you may find the same vulnerability in both. Keep in mind that hybrid is more like a web-based environment to attack (Webviews' fault). The only problem regards the approach: how to test a native or a hybrid application.
 
+|                                           | Native Apps                                        |
+|:------------------------------|:------------------------------------------|
+|**Code**                             | Java / Kotlin / Swift / Objective-C  |
+|**Compilation iOS**          |AOT                              |
+|**Compilation Android**  |JIT                              |
+|**UI Rendering**               |Native Design Elements                             |
+|**UI Engineering**            |Native Experience for the cost of Code Sharing|
+
 ### Detecting app
 
 Android
@@ -55,9 +72,10 @@ iOS
 ### Intercepting Traffic
 
 Android
-: - *Rooted & Unrooted device*: use the local proxy settings (WiFi settings)
-- *Rooted & Unrooted device*: patch the apk to accept "user" certificates
-- *Rooted device*: use ProxyDroid App
+: - ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  patch the apk to accept "user" certificates
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" }  use ProxyDroid App
 
 >When creating your test environment, it is critical to understand which solution you want to use and the differences among them. You might think that methods that work for both rooted and unrooted devices are the best, but what about ignoring proxy settings, network security config integrity checks, or any other mechanisms that make your life stressful during a pentest? There are non-identical methods for redirecting traffic to another host (i.e. a proxy) under the the woods, and this is why there is a difference between the **local proxy setting** and **ProxyDroid**. To begin, the first does not require a rooted device, whereas ProxyDroid does.
 
@@ -66,8 +84,8 @@ Although their expected behavior is the same, these two solutions behave differe
 Once you have set up one of the solutions listed above, check [here](https://blog.nviso.eu/2020/11/19/proxying-android-app-traffic-common-issues-checklist/) to be sure you are not mad and everything is gonna work.
 
 iOS
-: - *Jailbroken & Unjailbroken device*: use the local proxy settings (WiFi settings)
-- *Jailbroken & Unjailbroken device*: set up a VPN Server, download OpenVPN Client on the device
+: - ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  set up a VPN Server, download OpenVPN Client on the device
 
 *iOS doesn't support iptables at kernel level, so either you change the iOS kernel (good luck) or you are screwed.*
 
@@ -106,6 +124,14 @@ iOS
 
 Xamarin, which is a Microsoft product, provides a single platform to develop one application for multiple platforms with **.NET** and **C#** – iOS and Android in most cases. As it is a framework, it likes getting us more frustrated, but how? Simply ignoring system proxy settings by default. Additionally, Microsoft has already implemented secure coding practices in the Xamarin framework. As such, applications developed with this framework inherit these security controls (uff..). This makes Xamarin–based applications arguably more secure than applications developed from scratch using traditional or no frameworks. Since Xamarin has full access to native APIs and toolkits used by both iOS and Android applications, it doesn't only save developers time in building and maintaining the application, but also help them in achieving near-native look and performance.
 
+|                                           | Xamarin                                                    |
+|:------------------------------|:-----------------------------------------|
+|**Code**                             |C#    |
+|**Compilation iOS**          |AOT                              |
+|**Compilation Android**  |JIT/AOT                                                        |
+|**UI Rendering**               |Native Design Elements                                           |
+|**UI Engineering**            |Native / Code Sharing for the cost of native experience   |
+
 ### Detecting app
 
 Android
@@ -132,10 +158,10 @@ iOS
 Since any local proxy setting is ignored by Xamarin, the only way to intercept the traffic generated by an application is setting up a VPN Server in another machine, connect the device to it (i.e OpenVPN) and enable IPtables on the remote machine to redirect all the traffic to **Burp Suite** (it can stay on the same machine or another one, it doesn't matter at all). It is not the same to achieve it on Android and iOS.
 
 Android
-: ProxyDroid is enough (so a VPN Server is not needed)
+: ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  ProxyDroid is enough (so a VPN Server is not needed)
 
 iOS
-: Follow this [guide](https://blog.nviso.eu/2020/06/12/intercepting-flutter-traffic-on-ios/), even though it is for flutter, it works well; you need to create a VPN Server. Otherwise, here another [guide](https://triskelelabs.com/intercepting-xamarin-mobile-app-traffic-2/) for Xamarin.
+: ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  Follow this [guide](https://blog.nviso.eu/2020/06/12/intercepting-flutter-traffic-on-ios/), even though it is for flutter, it works well; you need to create a VPN Server. Otherwise, here another [guide](https://triskelelabs.com/intercepting-xamarin-mobile-app-traffic-2/) for Xamarin.
 
 ### Certificate Pinning
 
@@ -173,6 +199,14 @@ iOS
 
 Flutter is Google’s new open source mobile development framework that allows developers to write a single code base and build for Android, iOS, web and desktop. Flutter applications are written in Dart, a language created by Google more than 7 years ago. Do you think is different from Xamarin? No boy, it is also worse! If Xamarin ignores local proxy settings at least, Flutter (actually Dart) doesn’t use the system CA store (so neither system’s proxy settings) but a list of CA’s that’s compiled into the application!
 
+|                                           | Flutter                                        |
+|:------------------------------|:------------------------------------------|
+|**Code**                             | Dart  / C + C++ (Graphic Engine) |
+|**Compilation iOS**          |AOT                              |
+|**Compilation Android**  |AOT                                  |
+|**UI Rendering**               |Native Design Elements                             |
+|**UI Engineering**            |   |
+
 ### Detecting app
 
 Android
@@ -197,10 +231,10 @@ Since any local proxy setting is ignored by Dart, the only way to intercept the 
 Achieving it for Android and iOS is not the same:
 
 Android
-: ProxyDroid is enough (a VPN Server is not needed)
+: ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  ProxyDroid is enough (a VPN Server is not needed)
 
 iOS
-: Follow this [guide](https://blog.nviso.eu/2020/06/12/intercepting-flutter-traffic-on-ios/)
+: ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  Follow this [guide](https://blog.nviso.eu/2020/06/12/intercepting-flutter-traffic-on-ios/)
 
 
 ### Certificate Pinning
@@ -222,6 +256,7 @@ iOS
 : .....
 
 [Come si debugga l'app]
+- cit: Here notice that Debug mode builds use a Dart virtual machine to run Dart code in order to enable stateful hot reload.
 
 ### Reverse Engineering
 
@@ -240,6 +275,14 @@ iOS
 ## Cordova (aka PhoneGap)
 
 Apache Cordova (aka PhoneGap) is an open-source mobile development framework. It allows you to use standard web technologies - HTML5, CSS3, and JavaScript for cross-platform development. Applications execute within wrappers targeted to each platform and rely on standards-compliant API bindings to access each device's capabilities such as sensors, data, network status, etc. Cordova doesn't offer any UI
+
+|                                           | Cordova                                                    |
+|:------------------------------|:-----------------------------------------|
+|**Code**                             |HTML, CSS, Javascript    |
+|**Compilation iOS**          |JIT + WKWebView                              |
+|**Compilation Android**  |JIT                                                        |
+|**UI Rendering**               |HTML, CSS                                           |
+|**UI Engineering**            |Code Sharing for the cost of native experience   |
 
 ### Detecting app
 
@@ -368,14 +411,14 @@ iOS
 ### Intercepting Traffic
 
 Android
-: - *Rooted & Unrooted device*: use the local proxy settings (WiFi settings)
-- *Rooted & Unrooted device*: patch the apk to accept "user" certificates
-- *Rooted device*: use ProxyDroid App
+: - ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  patch the apk to accept "user" certificates
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" }  use ProxyDroid App
 
 
 iOS
-: - *Jailbroken & Unjailbroken device*: use the local proxy settings (WiFi settings)
-- *Jailbroken & Unjailbroken device*: set up a VPN Server, download OpenVPN Client on the device
+: - ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  set up a VPN Server, download OpenVPN Client on the device
 
 ### Certificate Pinning
 
@@ -425,6 +468,7 @@ Xamarin:
 
 Flutter:
 - [https://blog.nviso.eu/2019/08/13/intercepting-traffic-from-android-flutter-applications/](https://blog.nviso.eu/2019/08/13/intercepting-traffic-from-android-flutter-applications/)
+- [https://medium.com/jay-tillu/3-flutter-compilation-process-8fd18630ba7f](https://medium.com/jay-tillu/3-flutter-compilation-process-8fd18630ba7f)
 
 Ionic & Cordova:
 - [https://ionicframework.com/docs/](https://ionicframework.com/docs/)

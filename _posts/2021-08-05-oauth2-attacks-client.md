@@ -4,6 +4,12 @@ author: Paolo Serra
 date: 2021-08-03 10:00:00
 categories: [Topic, OAuth2]
 toc: true
+
+image:
+  src: /images/wallpapers/jujutsukaisen.jpeg
+  width: 1000   # in pixels
+  height: 300   # in pixels
+  alt: Mmh.. there's no image
 ---
 
 ## Intro
