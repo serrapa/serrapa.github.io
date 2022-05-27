@@ -39,18 +39,18 @@ Like Android and iOS themself, also modern frameworks provide built-in solutions
 
 ## A quick overview to understand the follow-up: Native Applications
 
-A Native app is created for a specific platform, usually Android or iOS, as these are the most popular ones. Developers use a programming language that suits a particular platform: Java and Kotlin for Android, Swift and Objective-C for iOS. From a security standpoint, there aren't many differences among hybrid solutions; you may find the same vulnerability in both. Keep in mind that hybrid is more like a web-based environment to attack (Webviews' fault).
+A Native app is created for a specific platform, usually Android or iOS, as these are the most popular ones. Developers use a programming language that suits a particular platform: Java and Kotlin for Android, Swift and Objective-C for iOS. From a security standpoint, there aren't many differences with the hybrid solutions; you may find the same vulnerability in both. Keep in mind that hybrid is more like a web-based environment to attack (Webviews' fault). The only problem regards the approach: how to test a native or a hybrid application.
 
 ### Detecting app
 
 Android
-: Every app (native or not) has a codebase written in Java/Kotlin, so don't rely the detection on it. Actually, there are some elements that help you to discover how the app has been built with:
+: Every app (native or not) has a codebase written in Java/Kotlin, so don't rely the detection on it. Actually, there are some elements that help you to discover how the app is built with:
 - ***Check through Developer Options and layout bounds***: If it's a native app, it will display rectangles in each activity you open, whereas a hybrid app will display a cross line and no rectangles. Consider that this rule does not apply to all frameworks because some of them convert graphic elements into native ones.
-- ***Use Webview to Check***: The WebView method can be used to determine whether an app is native or hybrid. If an app uses WebViews the majority of the time for each screen, it may be hybrid (**uiautomatorviewer**  is your friend). Keep in mind that this is not always the case: native apps can also benefit from a WebView.
-- ***Look up explicit frameworks elements inside the apk***: personally my favourite one.
+- ***Use Webview to check***: If an app uses WebViews most of the time for each screen, it may be hybrid (**uiautomatorviewer**  is your friend). Keep in mind that this is not always the case: native apps can also benefit from a WebView.
+- ***Look up explicit frameworks' elements inside the apk***: personally my favourite one. 
 
 iOS
-: Since I have never found a iOS-related way to detect the kind of an app yet, it remains for us to ***Look up explicit frameworks elements inside the ipa***.
+: Since I have never found a iOS-related way to detect precisely the kind of an app yet, it remains for us to ***Look up explicit frameworks elements inside the ipa***.
 
 
 ### Intercepting Traffic
