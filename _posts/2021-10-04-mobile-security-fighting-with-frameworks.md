@@ -12,7 +12,7 @@ There are many resources about Mobile security and how to conduct tests in nativ
 
 During my first mobile assessments, I spent a lot of time troubleshooting issues and figuring out why some things worked in some applications but not others. Finally, I realized that the issue was often the framework on which the application was built. It might seem obvious, but it wasn't for me at the time, which is why I decided to write this article. My goal is just to give you a panoramic of the most popular mobile development methods and some tips on how to handle mobile applications built using these frameworks.
 
-Specifically, we will concentrate on how to approach a **penetration test** performed against mobile applications built with the most common frameworks. When fighting against native applications, it may appear that you should use the same techniques and approaches, but there are some slightly different concepts that can drive you insane and in the wrong direction.
+Specifically, we will concentrate on how to approach a **penetration test** performed against mobile applications built with the most common frameworks. When fighting against native applications, it may appear that you should use the same techniques and approaches, but there are some slightly different concepts that can drive you crazy and into the wrong direction.
 
 Here is a list of the frameworks I'd like to explore (I will try to keep the list updated), but only some of them will be so far: *Xamarin, Flutter, Cordova, PhoneGap, Ionic, React Native, IBM Worklight, NativeScript, Appcelerator, Corona, Qt, Sencha, Unity3D, 5App, Framework7*
 
@@ -26,8 +26,7 @@ Here is a list of the frameworks I'd like to explore (I will try to keep the lis
 
 
 
-
-### Let's start from Network Communications
+### Two words about Network Communications (skip this part if you are confident)
 
 An attacker can use a local proxy to intercept communications between the mobile app and the server to discover and exploit network traffic vulnerabilities. A proxy enables an attacker to inspect, modify, repeat, and comprehend how the mobile app communicates with the server, as well as how the server may react to unexpected or untrusted data.
 Like Android and iOS themself, also modern frameworks provide built-in solutions for reducing an attacker's ability to intercept proxy communications. These safeguards primarily consist of certificate pinning and/or ignoring system proxy settings. However, as with all client-side mobile app protections, these can be circumvented if an attacker has complete control of the device.
