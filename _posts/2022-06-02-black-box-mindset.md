@@ -1,11 +1,13 @@
 ---
-title: Mobile Security - Fighting with Frameworks
+title: How to face Black Box assessments
 author: Paolo Serra
-date: 2022-06-02 10:00:00
+date: 9999-06-02 10:00:00
 categories: [Topic, Mindset]
 toc: true
 ---
 
+> Change the date of this post to make it visible.
+{: .prompt-danger }
 
  JUST NOTEs
 

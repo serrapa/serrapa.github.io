@@ -1,7 +1,7 @@
 ---
 title: OAuth Security and Testing Guide - Client
 author: Paolo Serra
-date: 2021-08-03 10:00:00
+date: 9999-08-03 10:00:00
 categories: [Topic, OAuth2]
 toc: true
 
@@ -11,6 +11,10 @@ image:
   height: 300   # in pixels
   alt: Mmh.. there's no image
 ---
+
+
+> Change the date of this post to make it visible.
+{: .prompt-danger }
 
 ## Intro
 

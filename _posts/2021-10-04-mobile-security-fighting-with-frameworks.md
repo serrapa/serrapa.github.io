@@ -31,7 +31,7 @@ Here is a list of the frameworks I'd like to explore (I will try to keep the lis
 |**Code**             |C#                           |Dart                   |HTML,CSS,TypeScript,Javascript                |Javascript                 |Javascript/TypeScript    |
 |**Compilation iOS**  |AOT                          |AOT                  |JIT+WKWebView            |Interpreter                |Interpreter              |
 |**Compilation Android**|JIT/AOT                      |AOT                  |JIT                      |JIT                        |JIT                      |
-|**UI Engineering**   |Native / Code Sharing for the cost of native experience|xxxxx                  |Code Sharing for the cost of native experience|Customization with built-in UI components |Code Sharing for the cost of native experience|
+|**UI Engineering**   |Native Experience for the cost of Code Sharing| Native                  |Code Sharing for the cost of native experience|Customization with built-in UI components |Code Sharing for the cost of native experience|
 
 
 
@@ -40,7 +40,7 @@ Here is a list of the frameworks I'd like to explore (I will try to keep the lis
 An attacker can use a local proxy to intercept communications between the mobile app and the server to discover and exploit network traffic vulnerabilities. A proxy enables an attacker to inspect, modify, repeat, and comprehend how the mobile app communicates with the server, as well as how the server may react to unexpected or untrusted data.
 Like Android and iOS themself, also modern frameworks provide built-in solutions for reducing an attacker's ability to intercept proxy communications. These safeguards primarily consist of certificate pinning and/or ignoring system proxy settings. However, as with all client-side mobile app protections, these can be circumvented if an attacker has complete control of the device.
 
-**NB**: *In this guide, I am not going to explain how to install your proxy's certificate in Android or iOS. Google is your friend so not being lazy and google it.*
+**NB**: *In this guide, I am not going to explain how to install your proxy's certificate in Android or iOS. Google is your friend, so don't be lazy and google it.*
 
 
 ---
@@ -55,7 +55,7 @@ A Native app is created for a specific platform, usually Android or iOS, as thes
 |**Compilation iOS**          |AOT                              |
 |**Compilation Android**  |JIT                              |
 |**UI Rendering**               |Native Design Elements                             |
-|**UI Engineering**            |Native Experience for the cost of Code Sharing|
+|**UI Engineering**            |Native or Code Sharing for the cost of native experience (WebView)|
 
 ### Detecting app
 
@@ -73,12 +73,10 @@ iOS
 
 Android
 : - ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
-- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
-- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  patch the apk to accept "user" certificates
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  patch the apk to accept ***user*** certificates
 - ![](/images/device_rooted.png){: .shadow width="35" height="35" }  use ProxyDroid App
 
 >When creating your test environment, it is critical to understand which solution you want to use and the differences among them. You might think that methods that work for both rooted and unrooted devices are the best, but what about ignoring proxy settings, network security config integrity checks, or any other mechanisms that make your life stressful during a pentest? There are non-identical methods for redirecting traffic to another host (i.e. a proxy) under the the woods, and this is why there is a difference between the **local proxy setting** and **ProxyDroid**. To begin, the first does not require a rooted device, whereas ProxyDroid does.
-
 Although their expected behavior is the same, these two solutions behave differently: Proxydroid uses IPtables (kernel level) to redirect traffic, which is why it requires root, whereas the local proxy setting sets up a proxy host and forwards all communication to it.
 
 Once you have set up one of the solutions listed above, check [here](https://blog.nviso.eu/2020/11/19/proxying-android-app-traffic-common-issues-checklist/) to be sure you are not mad and everything is gonna work.
@@ -87,33 +85,48 @@ iOS
 : - ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
 - ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  set up a VPN Server, download OpenVPN Client on the device
 
-*iOS doesn't support iptables at kernel level, so either you change the iOS kernel (good luck) or you are screwed.*
+*iOS doesn't support iptables at kernel level, so either you change the iOS kernel (good luck) or you need to be smart (like setting up a VPN Server).*
 
 
 ### Certificate Pinning
 
 Android
-: .....
+: - **Configuration** Approach:
+    - [Network Security Config](https://developer.android.com/training/articles/security-config) (**support for Android API 24+*)
+- **Programatically** Approach:
+    - [OkHttp](https://github.com/square/okhttp) (*support for Android API 17+*): It provides a *CertificatePinner* class that can be added to an *OkHttpClient* instance; basically you implement the pinning with two simple lines of code.
+    - [TrustKit for Android](https://github.com/datatheorem/TrustKit-Android) (*support for Android API 17+*): it takes advatange of the network security config from Android API 24+ and that means you need to add some lines in that *.xml* file and initialize the object instance in the source code (check the documentation). 
+    - There are probably others, but these two are the most commonly used and recommended.
 
 iOS
-: .....
+: - **Configuration** Approach (+ a few changes in the *native* source code):
+    - [TrustKit for iOS](https://github.com/datatheorem/TrustKit):  but recommended only for ***Simple Apps*** and some scenarios, check the docs. It actually use *method swizzling*  (the process of replacing the implementation of a function at runtime) on `NSURLSession` and `NSURLConnection` delegates, for this reason you have to be sure you can do it. This enables TrustKit to be deployed without modifying the App's source code.
+- **Programatically** Approach:
+    - [TrustKit for iOS](https://github.com/datatheorem/TrustKit): for scenarios where it's not possible using the *Configuration* approach 
+    - There are probably others, but Trustkit is the most commonly used and recommended.
 
-[Come dovrebbe essere implementato il pinning, quali sono le soluzioni comuni e come verificarlo(??).]
+WebView (Android and iOS)
+: lorem ipsum sum
 
-### Debugging
+
+### Debugging 
 
 Android
 :  - **Debug mode**: In this case, the app is already built to be debuggable, thus there is nothing special to do: Use Android Studio, Jadx Debugger, or any other debugging tool
 - **Release Mode**: You may want to debug the application during a penetration test, but because it was built in release mode (you rarely receive a debug mode apk), there is a good chance that the `debuggable` flag in the Manifest is not set to true. Nothing says you can debug the application in this case, so why not force it to be debuggable? The magic words are ***patching the apk***. You can do it yourself (if you are a noob, I recommend this solution so that you can understand how the entire operation should be done) or use a tool that automates everything.
 
 iOS
-: LLDB + debugserver
+: - LLDB + debugserver
+
+WebView (Android and iOS)
+: [to do]
 
 
 ### Reverse Engineering
 
 Android
-: Unless obfuscation techniques are used, the code base will be mostly Java or Kotlin, making it easier to read and statically analyze the application and its source code. You may also encounter applications that use the NDK, a toolkit that allows you to implement parts of your app in native code using languages such as C and C++. In general, decompiling an Android application is simple (some tools does it for you: (some tools does it for you: [jadx-gui](https://github.com/skylot/jadx)  or [jd-gui](http://java-decompiler.github.io/)).
+: Unless obfuscation techniques are used, the code base will be mostly Java or Kotlin, making it easier to read and statically analyze the application and its source code. You may also encounter applications that use the NDK, a toolkit that allows you to implement parts of your app in native code using languages such as C and C++ (reversing these is more challenging, same as iOS). 
+In general, decompiling an Android application is simple: (some tools does it for you: [jadx-gui](https://github.com/skylot/jadx)  or [jd-gui](http://java-decompiler.github.io/)).
 
 iOS
 : Eh eh... You need to get your hands dirty, man. It's not as straightforward as it is for Android; we're talking about binaries here, so pick one of the following tools and get started: IDA Pro, Ghidra, Radare or Binary Ninja. If you have ever played with binaries and assembly / machine code / unreadable code, you know what I am talking about, otherwise, it's another area of cybersecurity that you'll have to deal with sooner or later.
@@ -205,7 +218,7 @@ Flutter is Google’s new open source mobile development framework that allows d
 |**Compilation iOS**          |AOT                              |
 |**Compilation Android**  |AOT                                  |
 |**UI Rendering**               |Native Design Elements                             |
-|**UI Engineering**            |   |
+|**UI Engineering**            |Native  |
 
 ### Detecting app
 
@@ -388,9 +401,9 @@ React Native is a cross-platform solution that allows writing native apps using 
 |                                           | React Native                                     |
 |:------------------------------|:-----------------------------------------|
 |**Code**                             |Javascript  + Java / Objective-C / Swift |
-|**Compilation iOS**          |Interpreter                             |
-|**Compilation Android**  |JIT                                                        |
-|**UI Rendering**               |Native UI Controllers                                           |
+|**Compilation iOS**          |Interpreter or ATO (with Hermes)        |
+|**Compilation Android**  |JIT or / ATO (with Hermes)               |
+|**UI Rendering**               |Native UI Controllers                      |
 |**UI Engineering**            |Customization with built-in UI components |
 
 ### Detecting app
@@ -412,7 +425,7 @@ iOS
 
 Android
 : - ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
-- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  patch the apk to accept "user" certificates
+- ![](/images/device_rooted.png){: .shadow width="35" height="35" } ![](/images/device.png){: .shadow width="35" height="35" }  patch the apk to accept ***user*** certificates
 - ![](/images/device_rooted.png){: .shadow width="35" height="35" }  use ProxyDroid App
 
 
@@ -423,12 +436,11 @@ iOS
 ### Certificate Pinning
 
 Android
-: .....
+: - [React Native OkHttp](https://github.com/facebook/react-native/blob/main/ReactAndroid/src/main/java/com/facebook/react/modules/network/OkHttpClientProvider.java): This *Provider* is similar to the default one, but it's provided by React and exposes an `OkHttpClientBuilder` to which you may provide your own CertificatePinner instance. Unlike iOS (as we will see), the method required for implementing Pinning is actually exposed in Android.
 
 iOS
-: .....
+: - [TrustKit for iOS](https://github.com/datatheorem/TrustKit): We already mentioned ***method swizziling*** in the Native Apps section and even for React Native we will take advantage of it (remember: it is not always possible using it, see scenarios where it's not inside the ***Trustkit*** doc). Since we don't have access to React Native's delegates `NSURLConnection` and `NSURLSession` as far, this is the only solution. For this reason, the method required for implementing Pinning is not exposed like in Android.
 
-[Come dovrebbe essere implementato il pinning, quali sono le soluzioni comuni e come verificarlo(??).]
 
 ### Debugging
 
