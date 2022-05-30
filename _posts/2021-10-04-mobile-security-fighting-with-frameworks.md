@@ -1,7 +1,7 @@
 ---
 title: Mobile Security - Fighting with Frameworks
 author: Paolo Serra
-date: 2021-10-04 10:00:00
+date: 9999-10-04 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 
