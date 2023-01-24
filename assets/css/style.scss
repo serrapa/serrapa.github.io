@@ -1,0 +1,66 @@
+--- 
+--- 
+  
+ /* 
+   If the number of TAB files has changed, the following variable is required. 
+   And it must be defined before `@import`. 
+ */ 
+ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab 
+  
+ @import "{{ site.theme }}"; 
+  
+ /* append your custom style below */ 
+
+/* --- Begin of Markdown table style --- */
+
+.table-wrapper { // it will be created by Liquid
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+
+  > table {
+    min-width: 100% !important;
+    overflow-x: auto;
+    border-spacing: 0;
+
+    thead {
+      border-bottom: solid 2px rgba(210, 215, 217, 0.75);
+      th {
+        @extend %table-cell;
+      }
+    }
+
+    tbody {
+    
+      tr {
+        border-bottom: 1px solid var(--tb-border-color);
+
+        &:nth-child(2n) {
+          background-color: var(--tb-odd-bg);
+        }
+        td {
+          @extend %table-cell;
+        }
+
+        td:nth-child(1){
+          background-color: var(--body-bg);
+          //position: absolute;
+        }
+      }
+    }
+  }
+}
+
+
+
+/* Uncomment for DARK THEME */
+
+// ::-moz-selection { /* Code for Firefox */
+//   color: white;
+//   background: var(--toc-highlight);
+// }
+
+// ::selection {
+//   color: white;
+//   background: var(--toc-highlight);
+// }
+
