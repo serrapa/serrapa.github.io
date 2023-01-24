@@ -5,9 +5,9 @@ date: 9999-04-04 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
-img_path: /images/
+img_path: /images/mobile-security-fighting-with-frameworks
 image:
-  path: wallpapers/onepiece.webp
+  path: wallpaper.webp
   width: 1000   # in pixels
   height: 300   # in pixels
 ---

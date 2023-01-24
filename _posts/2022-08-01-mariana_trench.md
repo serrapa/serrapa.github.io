@@ -5,9 +5,9 @@ date: 2022-09-07 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
-img_path: /images/
+img_path: /images/mariana-trench/
 image:
-  path: wallpapers/bunnygirl2.jpeg
+  path: wallpaper.jpeg
   width: 1000   # in pixels
   height: 400   # in pixels
 ---
@@ -29,9 +29,9 @@ Although Mariana Trench is not designed to be used in black-box, it is a powerfu
 
 ## Where static analyzers fail
 Static analyzers are excellent tools for testing mobile applications since they can extract a large volume of information and automate simple tasks required to reverse an app. Consider MobSF: it provides a detailed overview of the Android API being used by the app, URL schemes, potential attack vectors, and much more. Basically, it means, "Here is this component or function; check it to see whether it may pose a security risk." In comparison to Mariana Trench, MobSF catches all sinks and sources (defined by itself, not customizable) but fails to identify a connection between them. For example, MobSF identifies the registration of a broadcast receiver and the starting of activity as follows:
-![Window shadow](mariana-trench/MobSF_result_1.png){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](MobSF_result_1.png){: .shadow width="1548" height="864" style="max-width: 90%" }
 _Detection of a BroadcastReceiver registration by MobSF_
-![Window shadow](mariana-trench/MobSF_result_2.png){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](MobSF_result_2.png){: .shadow width="1548" height="864" style="max-width: 90%" }
 _Detection of a StartActivity execution by MobSF_
 
 It is easy to see that the activity will be launched by the intent passed as the class method's second argument, but MobSF is not able to determine if it came from the one delivered to the broadcast receiver. We have two options for dealing with this situation:
@@ -328,15 +328,15 @@ Once the models are defined, we must write the rule that specifies the flow we w
 {: file="Rule - rules.json" }
 
 After defining the models and the rule, we can launch Mariana Trench and analyze the results:
-![Window shadow](mariana-trench/mariana_trench_result_1.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](mariana_trench_result_1.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
 _SAPP Web App - Issue Overview_
 
 Going in depth we notice how the source flows into the sink:
-![Window shadow](mariana-trench/mariana_trench_result_2.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](mariana_trench_result_2.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
 _SAPP Web App - Tracing the issue (part 1)_
-![Window shadow](mariana-trench/mariana_trench_result_3.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](mariana_trench_result_3.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
 _SAPP Web App - Tracing the issue (part 2)_
-![Window shadow](mariana-trench/mariana_trench_result_4.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](mariana_trench_result_4.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
 _SAPP Web App -Tracing the issue (part 3)_
 
 
