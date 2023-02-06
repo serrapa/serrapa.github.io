@@ -8,8 +8,6 @@ author: paoloserra
 img_path: /images/
 image:
   path: wallpapers/callofthenight.jpeg
-  width: 1000   # in pixels
-  height: 400   # in pixels
 ---
 
 ## From shell to hell

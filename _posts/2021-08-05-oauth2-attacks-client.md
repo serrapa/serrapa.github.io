@@ -8,8 +8,6 @@ author: paoloserra
 img_path: /images/
 image:
   src: wallpapers/jujutsukaisen.jpeg
-  width: 1000   # in pixels
-  height: 300   # in pixels
 ---
 
 

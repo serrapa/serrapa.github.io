@@ -8,8 +8,6 @@ author: paoloserra
 img_path: /images/mariana-trench/
 image:
   path: wallpaper.jpeg
-  width: 1000   # in pixels
-  height: 400   # in pixels
 ---
 
 
