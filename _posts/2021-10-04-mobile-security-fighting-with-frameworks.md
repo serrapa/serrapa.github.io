@@ -15,6 +15,9 @@ image:
 ![Device rooted/jailbroken](device_rooted.png){: .shadow .normal width="35" height="35" }    Device rooted/jailbroken
 ![Device](device.png){: .shadow .normal width="35" height="35" }    Device
 
+> Change the date of this post to make it visible.
+{: .prompt-danger }
+
 ## Intro
 
 There are many resources about Mobile security and how to perform security tests in native applications, but things are changing so quickly these days, and the Mobile world is offering different solutions and technologies to develop applications. We must all keep up with them.

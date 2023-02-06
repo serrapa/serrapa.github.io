@@ -7,10 +7,7 @@ toc: true
 author: paoloserra
 img_path: /images/
 image:
-  path: wallpapers/x
-  width: 1000   # in pixels
-  height: 400   # in pixels
-  alt: TO INSERT
+  path: wallpapers/chainsaw4.jpg
 ---
 
 > Change the date of this post to make it visible.
