@@ -5,7 +5,7 @@ date: 2022-09-07 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
-img_path: /images/mariana-trench/
+img_path: /images/mariana-trench/part_1
 image:
   path: wallpaper.jpeg
 ---
@@ -41,7 +41,7 @@ Through this series, we will avail the challenges of the vulnerable [Ovaa](https
 
 ### Challenge 1
 As reported in the github page, the first challenge is about: 
-> 1. Installation of an arbitrary login_url via deep link oversecured://ovaa/login?url=http://evil.com/. Leads to the user's user name and password being leaked when they log in.
+> 1. Installation of an arbitrary login_url via deep link oversecured://ovaa/login?url=http://evil.com/. Leads to the user's username and password being leaked when they log in.
 
 It seems a very realistic challenge: an external input is received and used by the application to do something. It is a suitable example for learning Mariana Trench. From the description, it appears there is a deep link managed by a component that presents a page from an arbitrary URL. The analysis requires a few steps:
 1. Find what component handles the deep link and the conclusion made.
@@ -214,13 +214,13 @@ Once analyzed the app's behaviour, we end up with some conclusions:
 - the **startActivity**  method is called with an implicit intent (```EntranceActivity```).
 
 #### Step 3
-It's time to use Mariana Trench. First of all, we need to understand what is our goal. We discovered that external input is received by the application through a deep link and gathered with the ```uri.getQueryParameter``` method, then stored inside the shared preferences with the ```editor.putString``` method, and used to send the user's credentials at the end through the ```loginService.login``` method (Retrofit). 
-At this point, we can decide which flow we are most interested in:
-- a flow where data inside a deep link URL is stored in to the shared preferences.
+It’s time to use Mariana Trench. First of all, we need to understand our goal. We discovered that external input is received by the application through a deep link and gathered with the ```uri.getQueryParameter``` method, then stored inside the shared preferences with the ```editor.putString``` method, and used to send the user's credentials at the end through the ```loginService.login``` method (Retrofit). 
+At this point, we can decide which flow we are more interested in:
+- a flow where data inside a deep link URL is stored in the shared preferences.
 - a flow where data stored in the shared preferences are processed in an HTTP request
 - a flow where the *startActivity*  method is called with an implicit intent.
 
-Let's start with the first one. At the moment, Facebook already offers some default sources and sinks with the corrisponding ***kind*** (listed in the table below), but no one of them offers a model that deals with input from deep links, thus for this reason we are going to create one that fits with the source and sink we are looking for.
+Let's start with the first one. At the moment, Facebook already offers some default sources and sinks with the corresponding ***kind*** (listed in the table below), but none of them concerns a model that deals with input from deep links. For this reason, we are going to create one that fits with the source and sink we are looking for.
 
 | Kind (Sources) | Kind (Sinks) |
 |:--- |:----|
@@ -306,8 +306,21 @@ The following is the model for the sink: very similar to the previous one, but i
 ````
 {: file="SharedPreferences Sink - CustomSharedPreferencesSinkGenerator.json" }
 
-Once the models are defined, we must write the rule that specifies the flow we wish to track. Each rule must provide the **kind** lists that identify the sources and sinks that will be used:
+Once the models are defined, we first need to "enable" them in the model generator configuration file, and then we must write the rule that specifies the flow we wish to track:
+- We must supply the source and sink file names inside the configuration file:
+````json
+[ 
+	{
+		"name": "CustomDeeplinkDataSourceGenerator",
+	},
+    {
+		"name": "CustomSharedPreferencesSinkGenerator",
+	},
+]
+````
+{: file="Model Generator Configuration File - custom_generator_config.json" }
 
+-  Each rule must provide the **kind** lists that identify the sources and sinks:
 ````json
 [ 
 	{
@@ -318,7 +331,7 @@ Once the models are defined, we must write the rule that specifies the flow we w
 			"DeeplinkUserInput"
 		],
 		"sinks": [
-			"FileWriting"
+			"writeOnSharedPreferences"
 		]
 	}
 ]
@@ -326,6 +339,9 @@ Once the models are defined, we must write the rule that specifies the flow we w
 {: file="Rule - rules.json" }
 
 After defining the models and the rule, we can launch Mariana Trench and analyze the results:
+
+> Remember to use the options *\--model-generator-configuration-paths* , *\--rules-paths* and if necessary *\--model-generator-search-paths* to give mariana the `CustomDeeplinkDataSourceGenerator.json`{: .filepath} and `CustomSharedPreferencesSinkGenerator.json`{: .filepath} files.
+
 ![Window shadow](mariana_trench_result_1.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
 _SAPP Web App - Issue Overview_
 

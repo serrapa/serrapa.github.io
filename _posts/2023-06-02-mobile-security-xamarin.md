@@ -13,8 +13,11 @@ image:
 ![Device rooted/jailbroken](device_rooted.png){: .shadow .normal width="35" height="35" }    Device rooted/jailbroken
 ![Device](device.png){: .shadow .normal width="35" height="35" }    Device
 
-> Change the date of this post to make it visible.
-{: .prompt-danger }
+> The blog post will be kept updated to offer a quality resource. DM me on Twitter or Linkedin for contributions.
+{: .prompt-info }
+
+Episode of [Fighting with Frameworks](/posts/mobile-security-fighting-with-frameworks/) season.
+
 
 ## Xamarin
 

@@ -13,8 +13,11 @@ image:
 ![Device rooted/jailbroken](device_rooted.png){: .shadow .normal width="35" height="35" }    Device rooted/jailbroken
 ![Device](device.png){: .shadow .normal width="35" height="35" }    Device
 
-> Change the date of this post to make it visible.
-{: .prompt-danger }
+> The blog post will be kept updated to offer a quality resource. DM me on Twitter or Linkedin for contributions.
+{: .prompt-info }
+
+Episode of [Fighting with Frameworks](/posts/mobile-security-fighting-with-frameworks/) season.
+
 
 ## Ionic
 
@@ -75,7 +78,7 @@ iOS
 [Come dovrebbe essere implementato il pinning, quali sono le soluzioni comuni e come verificarlo(??).]
 
 ### Debugging
-We mentioned Web Technologies, therefore what are the best tools for debugging them? **Chrome DevTools** is the answer. Because we are dealing with an Ionic App, it is evident that the application functionality lies within the Javascript code; thus, we must shift our focus to that side. 
+We mentioned Web Technologies, therefore what are the best tools for debugging them? **Chrome DevTools** is the answer. Because we are dealing with an Ionic App, it is evident that the application logic lies within the Javascript code; thus, we must shift our focus to that side. 
 
 Android
 : - `On Chrome` (**Debug & Release Mode**) Go to *Settings > Developer Options* (make sure they're enabled first) and ensure that the *developer options* switch is toggled on. Scroll down to *USB Debugging* and ensure that it is also enabled. Open the Chrome browser and navigate to the URL `chrome://inspect/#devices`. Once a WebView is created or the app starts, something will shows up on the page. Just click on *"inspect"*.

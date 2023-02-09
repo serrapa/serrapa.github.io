@@ -1,13 +1,13 @@
 ---
-title: How to face Black Box assessments
+title: Build an effective Black-Box mindset
 author: Paolo Serra
 date: 9999-06-02 10:00:00
 categories: [Topic, Mindset]
 toc: true
 author: paoloserra
-img_path: /images/
+img_path: /images/black-box-mindset
 image:
-  path: wallpapers/chainsaw4.jpg
+  path: wallpaper.jpg
 ---
 
 > Change the date of this post to make it visible.
