@@ -1,14 +1,17 @@
 ---
-title: Diving in Mariana Trench (part 1)
+title: Diving in Mariana Trench (episode 1)
 author: Paolo Serra
 date: 2022-09-07 10:00:00
-categories: [Topic, Mobile Security]
+categories: [Mobile Security, Mariana Trench]
 toc: true
+tags: ["test"]
 author: paoloserra
 img_path: /images/mariana-trench/part_1
 image:
   path: wallpaper.jpeg
 ---
+
+Episode of [Mariana Trench](/categories/mariana-trench/) season 1.
 
 
 ## A bit of Mariana Trench
@@ -17,7 +20,7 @@ His main focus is on **data flow**, which is defined as a path that connects a s
 - **source**: a source is the *starting point* - user's input, intents or parameters returned by methods or method's parameters.
 - **sink**: a sink is the *ending point* (destination) - a function, a method or wherever a source may end up in.
 - **rule**: the definition of the *link* between the source and the sink. In other words, the description of the issue: if you find that the source flows into the sink as specified in the rule, it may be a vulnerability.
-- **model**: the *definition* of the *source* or the *sink* (it could be even more but keep it simple for now). Basically, a JSON file where you configure which methods, variables or other things define the source or sink. 
+- **model**: the *definition* of the *source* or the *sink* (it could be even more but keep it simple for now). Basically, a JSON file where you configure which methods, variables or other things to define sources or sinks. 
 - **kind**: an arbitrary string value used to cluster sources and sinks.
 
 A vast codebase may have many distinct types of associated sources and sinks. By setting rules, we may instruct MT to highlight those flows where the data passes from the source into the sink. As a pentester or bug hunter, you may be interested in discovering vulnerabilities that occur when data flows from an attacker-controlled source to a specific function or method used by the application. All you need to do is create the rules and the configuration of the models defining the data flow without worrying about the identification algorithm implementation. That’s performed by Mariana through [abstract interpretation](https://en.wikipedia.org/wiki/Abstract_interpretation) by computing a model for each Java method it sees in the codebase.
@@ -27,9 +30,9 @@ Although Mariana Trench is not designed to be used in black-box, it is a powerfu
 
 ## Where static analyzers fail
 Static analyzers are excellent tools for testing mobile applications since they can extract a large volume of information and automate simple tasks required to reverse an app. Consider MobSF: it provides a detailed overview of the Android API being used by the app, URL schemes, potential attack vectors, and much more. Basically, it means, "Here is this component or function; check it to see whether it may pose a security risk." In comparison to Mariana Trench, MobSF catches all sinks and sources (defined by itself, not customizable) but fails to identify a connection between them. For example, MobSF identifies the registration of a broadcast receiver and the starting of activity as follows:
-![Window shadow](MobSF_result_1.png){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](MobSF_result_1.png){: .shadow width="1548" height="864"  }
 _Detection of a BroadcastReceiver registration by MobSF_
-![Window shadow](MobSF_result_2.png){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](MobSF_result_2.png){: .shadow width="1548" height="864"  }
 _Detection of a StartActivity execution by MobSF_
 
 It is easy to see that the activity will be launched by the intent passed as the class method's second argument, but MobSF is not able to determine if it came from the one delivered to the broadcast receiver. We have two options for dealing with this situation:
@@ -342,15 +345,15 @@ After defining the models and the rule, we can launch Mariana Trench and analyze
 
 > Remember to use the options *\--model-generator-configuration-paths* , *\--rules-paths* and if necessary *\--model-generator-search-paths* to give mariana the `CustomDeeplinkDataSourceGenerator.json`{: .filepath} and `CustomSharedPreferencesSinkGenerator.json`{: .filepath} files.
 
-![Window shadow](mariana_trench_result_1.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](mariana_trench_result_1.jpg){: .shadow width="1548" height="864"  }
 _SAPP Web App - Issue Overview_
 
 Going in depth we notice how the source flows into the sink:
-![Window shadow](mariana_trench_result_2.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](mariana_trench_result_2.jpg){: .shadow width="1548" height="864"  }
 _SAPP Web App - Tracing the issue (part 1)_
-![Window shadow](mariana_trench_result_3.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](mariana_trench_result_3.jpg){: .shadow width="1548" height="864"  }
 _SAPP Web App - Tracing the issue (part 2)_
-![Window shadow](mariana_trench_result_4.jpg){: .shadow width="1548" height="864" style="max-width: 90%" }
+![Window shadow](mariana_trench_result_4.jpg){: .shadow width="1548" height="864"  }
 _SAPP Web App -Tracing the issue (part 3)_
 
 
