@@ -4,7 +4,6 @@ author: Paolo Serra
 date: 2022-09-07 10:00:00
 categories: [Mobile Security, Mariana Trench]
 toc: true
-tags: ["test"]
 author: paoloserra
 img_path: /images/mariana-trench/part_1
 image:
@@ -15,7 +14,7 @@ Episode of [Mariana Trench](/categories/mariana-trench/) season 1.
 
 
 ## A bit of Mariana Trench
-Mariana Trench is a Facebook tool designed to detect and prevent security and privacy flaws in Android and Java applications. It appears to be a basic static analyzer that supports the discovery of vulnerabilities and issues through a set of pre-defined rules, but it is much more than that. 
+[Mariana Trench](https://github.com/facebook/mariana-trench) is a Facebook tool designed to detect and prevent security and privacy flaws in Android and Java applications. It appears to be a basic static analyzer that supports the discovery of vulnerabilities and issues through a set of pre-defined rules, but it is much more than that. 
 His main focus is on **data flow**, which is defined as a path that connects a source to a sink. It is super important to understand what sources and sinks are when writing the rules and the models (we'll see them after) and here is a simple explanation:
 - **source**: a source is the *starting point* - user's input, intents or parameters returned by methods or method's parameters.
 - **sink**: a sink is the *ending point* (destination) - a function, a method or wherever a source may end up in.
@@ -29,7 +28,7 @@ Although Mariana Trench is not designed to be used in black-box, it is a powerfu
 
 
 ## Where static analyzers fail
-Static analyzers are excellent tools for testing mobile applications since they can extract a large volume of information and automate simple tasks required to reverse an app. Consider MobSF: it provides a detailed overview of the Android API being used by the app, URL schemes, potential attack vectors, and much more. Basically, it means, "Here is this component or function; check it to see whether it may pose a security risk." In comparison to Mariana Trench, MobSF catches all sinks and sources (defined by itself, not customizable) but fails to identify a connection between them. For example, MobSF identifies the registration of a broadcast receiver and the starting of activity as follows:
+Static analyzers are excellent tools for testing mobile applications since they can extract a large volume of information and automate simple tasks required to reverse an app. Consider [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF): it provides a detailed overview of the Android API being used by the app, URL schemes, potential attack vectors, and much more. Basically, it means, "Here is this component or function; check it to see whether it may pose a security risk." In comparison to Mariana Trench, MobSF catches all sinks and sources (defined by itself, not customizable) but fails to identify a connection between them. For example, MobSF identifies the registration of a broadcast receiver and the starting of activity as follows:
 ![Window shadow](MobSF_result_1.png){: .shadow width="1548" height="864"  }
 _Detection of a BroadcastReceiver registration by MobSF_
 ![Window shadow](MobSF_result_2.png){: .shadow width="1548" height="864"  }

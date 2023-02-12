@@ -9,6 +9,9 @@ img_path: /images/about
 [![eMAPT](eMAPT.png){: .shadow .normal width="60" height="60" }](https://verified.elearnsecurity.com/certificates/b6fb6013-fe8e-461f-be8a-3b3dd6df024d)
 [![eJPT](eJPT.png){: .shadow .normal width="60" height="60" }](https://verified.elearnsecurity.com/certificates/0dc0d891-394a-44fb-9180-ffc3829fa123)
 
+[![HackTheBox](https://www.hackthebox.com/badge/image/73653){: .shadow .right}](https://app.hackthebox.com/profile/73653)
+
+
 My name is Paolo Serra, a pentester currently focused on Application security most of the time. I often deal with Web and Mobile Security, but I  also adore Machine Learning: it blows me away, and that's why automating tasks, getting them done and creating AIs are my best-loved things to do when I have time to lose. I like creating and playing CTFs, analyzing tools and reading other people's blogs. 
 
 I don't want to write blog posts similar to those tons of articles out there, but something more exotic, uncommon, helpful and interesting. Hope you enjoy the reading!
