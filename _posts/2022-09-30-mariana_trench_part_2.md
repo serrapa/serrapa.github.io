@@ -28,11 +28,11 @@ Do you remember when I mentioned the workarounds for dealing with the lack of a 
 
 You don't have the source code in black-box, but there are many tools that can extract the Java code from an APK. One is [***jadx-gui***](https://github.com/skylot/jadx), which also allows you to save the output as a gradle project:
 
-![Window shadow](jadx-save-as-grandle.png){: .shadow width="1548" height="864"  }
+![Window shadow](jadx-save-as-grandle.png){:  width="1548" height="864"  }
 _jadx-gui_
 
 Jadx's output is not enough to work with SAPP UI since, when given the sources, it displays the traces with 404 HTTP errors:
-![Window shadow](mariana-trench-error-not-found.png){: .shadow width="1548" height="864"  }
+![Window shadow](mariana-trench-error-not-found.png){:  width="1548" height="864"  }
 _File Not Found_
 
 We notice an error indicating that a path file was not found by inspecting the responses in the console:
@@ -46,7 +46,7 @@ $ find <PATH_JADX_OUTPUT>/app/src/main/java -type f -name '*.java' -exec sh -c '
 ```
 
 Once all the files are renamed, SAPP UI displays the traces correctly:
-![Window shadow](trace-file-found.png){: .shadow   }
+![Window shadow](trace-file-found.png){:    }
 _/tmp/apps/app-debug/app/src/main/java/com/mariana_lab/MainActivity_
 
 > Limitations: other errors may occur, for example a mismatch between the lines. Furthermore, the highlighted line is often incorrect when using these workarounds, so do not rely on it.
