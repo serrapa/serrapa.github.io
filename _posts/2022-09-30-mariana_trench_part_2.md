@@ -52,7 +52,7 @@ _/tmp/apps/app-debug/app/src/main/java/com/mariana_lab/MainActivity_
 > Limitations: other errors may occur, for example a mismatch between the lines. Furthermore, the highlighted line is often incorrect when using these workarounds, so do not rely on it.
 {: .prompt-warning }
 
-There are five steps between decompiling the APK and starting SAPP UI, so given my laziness, I created a [bash script](https://github.com/serrapa/mariana-trench-launcher) to run inside the Mariana Trench directory: 
+There are five steps between decompiling the APK and starting SAPP UI, with respect to my laziness, I created a [bash script](https://github.com/serrapa/mariana-trench-launcher) runnable inside the Mariana Trench directory: 
 
 ```console
 $ cd <MARIANA_PATH> & source venv/bin/activate & ./mariana-.sh <APK_PATH> [dev] [skip]
@@ -61,13 +61,13 @@ $ cd <MARIANA_PATH> & source venv/bin/activate & ./mariana-.sh <APK_PATH> [dev] 
 
 
 ## Get your hands dirty - again
-In the previous post, I introduced to you the basic concepts of Mariana Trench through a practical example. We developed two simple models: one source and one sink. However, they were too general, *a piece of cake*. Building simple generators might generate a large volume of false positives and, therefore, we will do our best to improve our models.
+In the previous post, I introduced you to the basic concepts of Mariana Trench through a practical example. We developed two simple models: one source and one sink. However, they were too general, *a piece of cake*. Building simple generators might generate a large volume of false positives and, therefore, we will do our best to improve our models.
 
 
 ### Challenge 1
 Let’s get back to our [Ovaa](https://github.com/oversecured/ovaa) application and custom files for Mariana Trench. In this episode, we will tune our model generators to be more efficient and minimize the false positives we might get with the current files. Before going on, a short recap ([docs](https://mariana-tren.ch/docs/models/)) of the main concepts:
 
-- **Model generator**: A model is an abstract representation of how data flows through a method and can consist of sources, sinks, and other things. Our `CustomDeeplinkDataSourceGenerator`{: .filepath} and `CustomSharedPreferencesSinkGenerator`{: .filepath}  are the model generator files where we defined the conditions to declare what methods should be considered a source or a sink.
+- **Model generator**: A model is an abstract representation of how data flows through a method and it can consist of sources, sinks, and other things. Our `CustomDeeplinkDataSourceGenerator`{: .filepath} and `CustomSharedPreferencesSinkGenerator`{: .filepath}  are the model generator files where we defined the conditions to declare what methods should be considered a source or a sink.
 
 - **Constraint**: an expression that specifies the methods for which a “model” should be generated. A method or field must satisfy all constraints in order to generate a model for it.
 
