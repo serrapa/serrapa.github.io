@@ -1,13 +1,13 @@
 ---
 title: Mobile Security - Fighting with Frameworks - Flutter
 author: Paolo Serra
-date: 9999-01-02 10:00:00
+date: 2023-01-02 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
 img_path: /images/mobile-security-fighting-with-frameworks
 image:
-  path: /flutter/
+  path:  /flutter/wallpaper.jpeg
 ---
 
 ![Device rooted/jailbroken](device_rooted.png){: .shadow .normal width="35" height="35" }    Device rooted/jailbroken
@@ -21,15 +21,15 @@ Episode of [Fighting with Frameworks](/posts/mobile-security-fighting-with-frame
 
 ## Flutter
 
-Flutter is Google’s new open source mobile development framework that allows developers to write a single code base and build for Android, iOS, web and desktop. Flutter applications are written in Dart, a language created by Google more than 7 years ago. Do you think is different from Xamarin? No boy, it is also worse! If Xamarin ignores local proxy settings at least, Flutter (actually Dart) doesn’t use the system CA store (so neither system’s proxy settings) but a list of CA’s that’s compiled into the application!
+Flutter is Google’s new open source mobile development framework that allows developers to write a single code base and build for Android, iOS, web and desktop. Flutter applications are written in Dart, a language created by Google more than 7 years ago. Do you think is different from Xamarin? No boy, it is also worse! If Xamarin ignores local proxy settings at least, Flutter (actually Dart) doesn’t use the system CA store (and neither system’s proxy settings) but a list of CA’s that’s compiled in the application!
 
 |                                           | Flutter                                        |
 |:------------------------------|:------------------------------------------|
 |**Code**                             | Dart  / C + C++ (Graphic Engine) |
-|**Compilation iOS**          |AOT                              |
-|**Compilation Android**  |AOT                                  |
-|**UI Rendering**               |Native Design Elements                             |
-|**UI Engineering**            |Native  |
+|**Compilation iOS**          | AOT (production) / JIT (development)    |
+|**Compilation Android**  | AOT  (production) / JIT (development)   |
+|**UI Rendering**               | Native Design Elements                             |
+|**UI Engineering**            | Native  |
 
 ### Detecting app
 All applications developed in Flutter have some fingerprints that render themselves easy to recognize.

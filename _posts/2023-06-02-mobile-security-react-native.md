@@ -1,7 +1,7 @@
 ---
 title: Mobile Security - Fighting with Frameworks - React Native
 author: Paolo Serra
-date: 9999-02-06 10:00:00
+date: 2022-02-06 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
@@ -22,7 +22,7 @@ Episode of [Fighting with Frameworks](/posts/mobile-security-fighting-with-frame
 
 React Native is a cross-platform framework that allows the development of mobile apps using only one codebase in JavaScript or TypeScript. React Native has come a long way in terms of performance, and in many cases, it can provide a level of performance that is comparable to that of a native app. 
 
-The native app executes JavaScript code with the native or custom JavaScript engine in a separate thread. Native JS engine uses the source code stored in the `.jsbundle`{: .filepath} file, while custom JS engines can have various behaviours. React Native has come a long way in terms of performance, and in many cases, it can provide a level of performance that is comparable to that of a native app.
+The native app executes JavaScript code with the native or custom JavaScript engine in a separate thread. Native JS engine uses the source code stored in the `.jsbundle`{: .filepath} file, while custom JS engines can have various behaviours.
 
 |                                           | React Native                                     |
 |:------------------------------|:-----------------------------------------|
