@@ -1,7 +1,7 @@
 ---
 title: Mobile Security - Fighting with Frameworks - React Native
 author: Paolo Serra
-date: 2022-02-06 10:00:00
+date: 9999-02-06 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra

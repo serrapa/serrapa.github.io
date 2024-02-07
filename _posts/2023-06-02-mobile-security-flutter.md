@@ -1,7 +1,7 @@
 ---
 title: Mobile Security - Fighting with Frameworks - Flutter
 author: Paolo Serra
-date: 2023-01-02 10:00:00
+date: 9999-01-02 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
