@@ -1,5 +1,7 @@
 Nella sezione Upgrading (https://chirpy.cotes.page/posts/getting-started/#upgrading) seguire le linee guida dell'opzione 1.
 
+## I suggest to get a BACKUP copy before upgrading.
+
 OPZIONE 1: 
 
 If you are using the theme gem (there will be gem "jekyll-theme-chirpy" in the Gemfile), editing the Gemfile and update the version number of the theme gem, for example:
@@ -24,4 +26,3 @@ The critical files are:
 └── index.html
 ````
 
-## I suggest to get a BACKUP copy before upgrading.
