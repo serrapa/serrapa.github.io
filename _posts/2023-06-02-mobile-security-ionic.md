@@ -5,7 +5,7 @@ date: 9999-01-02 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
-img_path: /images/mobile-security-fighting-with-frameworks
+media_subpath: /images/mobile-security-fighting-with-frameworks
 image:
   path: /ionic/
 ---
@@ -23,13 +23,13 @@ Episode of [Fighting with Frameworks](/posts/mobile-security-fighting-with-frame
 
 Ionic is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies — HTML, CSS, and JavaScript — with integrations for popular frameworks like Angular, React, and Vue. Actually, if you don't want to mess things up you can move alone with a simple *script include* without using any frontend framework. That means that if you don't find any references to Angular, React or Vue, there might be more vulnerabilities to discover because it's all up to developers (blink!).  You may wonder how exactly Ionic works, but in nutshell it uses Capacitor or Cordova to deploy natively, because they give access to Native SDKs, and Web Views (provided by both iOS and Android SDKs) to render any Ionic app. 
 
-|                                           | Ionic                                                    |
-|:------------------------------|:-----------------------------------------|
-|**Code**                             |HTML, CSS, TypeScript, Javascript    |
-|**Compilation iOS**          |JIT + WKWebView                              |
-|**Compilation Android**  |JIT                                                        |
-|**UI Rendering**               |HTML, CSS                                           |
-|**UI Engineering**             |Code Sharing for the cost of native experience   |
+|                         | Ionic                                          |
+| :---------------------- | :--------------------------------------------- |
+| **Code**                | HTML, CSS, TypeScript, Javascript              |
+| **Compilation iOS**     | JIT + WKWebView                                |
+| **Compilation Android** | JIT                                            |
+| **UI Rendering**        | HTML, CSS                                      |
+| **UI Engineering**      | Code Sharing for the cost of native experience |
 
 >***Capacitor*** is an open source *cross-platform app runtime* (like Cordova) that allows web-based apps to run natively on iOS, Android, Electron and the Web. Capacitor was created and is actively developed/supported by Ionic (while Cordova by Apache). Although they are similar to each other (think that Capacitor has been built on the fundamentals of Cordova), there are some differences that a pentester should know about:
 - **Native Project Management**: when developers adotp Capacitor, configuration changes are made by editing the appropriate platform-specif configuration files directly, such as AndroidManifest.xml and Info.plist. 
@@ -53,18 +53,18 @@ Android
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use ***Bettercap*** to set up an ARP Poisoning attack
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use ***NoPE Proxy*** (Burp extension) to carry on a DNS Spoofing attack
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  set up an Access Point and connect the iOS device to it
-- ![](device_rooted.png){: .shadow width="35" height="35" }  use ProxyDroid App
-- ![](device_rooted.png){: .shadow width="35" height="35" }  in case of “client isolation” activated in the Wireless network and the iOS device and your laptop are not able to communicate: use SSH remote port forwarding
+- ![](device_rooted.png){: .shadow width="35" height="35" }  use **ProxyDroid** app
+- ![](device_rooted.png){: .shadow width="35" height="35" }  in case of **client isolation** enabled in the network and the iOS device and your laptop are not able to communicate: use SSH remote port forwarding
 - ![](device_rooted.png){: .shadow width="35" height="35" } use the `/etc/hosts`{: .filepath} file to make the target domain point to the IP address of your interception proxy.
 
 
 iOS
 : - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
-- ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  set up a VPN Server and implement the IPTables rules to forward all incoming traffic on 80 and 443 ports to the proxy host and port. Lastly, download OpenVPN Client on the device
+- ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  set up a VPN Server and implement the IPTables rules to forward all incoming traffic on 80 and 443 ports to the proxy host and port. Lastly, download OpenVPN Client on the device.
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use ***Bettercap*** to set up an ARP Poisoning attack
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use ***NoPE Proxy*** (Burp extension) to carry on a DNS Spoofing attack
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  set up an Access Point and connect the iOS device to it
-- ![](device_rooted.png){: .shadow width="35" height="35" }  in case of “client isolation” activated in the Wireless network and the iOS device and your laptop are not able to communicate: use SSH remote port forwarding
+- ![](device_rooted.png){: .shadow width="35" height="35" }  in case of **client isolation** enabled in the network and the iOS device and your laptop are not able to communicate: use SSH remote port forwarding
 - ![](device_rooted.png){: .shadow width="35" height="35" } use the `/etc/hosts`{: .filepath} file to make the target domain point to the IP address of your interception proxy.
 
 ### Certificate Pinning

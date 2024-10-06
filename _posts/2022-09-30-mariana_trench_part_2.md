@@ -5,7 +5,7 @@ date: 2023-02-12 10:00:00
 categories: [Mobile Security, Mariana Trench]
 toc: true
 author: paoloserra
-img_path: /images/mariana-trench/part_2/
+media_subpath: /images/mariana-trench/part_2/
 image:
   path: wallpaper.jpeg
   width: 100%
@@ -76,12 +76,12 @@ Once all the models are generated, Mariana does its job and produces a result th
 #### Minimize the false positives
 Basically, we designed two models based on the ***name*** constraint, which treats the method as a source only if the item contains the specified value. It doesn't care about the class, the arguments' types, or the return value. Each method starting with the ```getQueryParameter```  or the ```putString``` string is treated as a source. 
 
-| Source/Sink                                                                                     | Item                                    |
-|:--------------------------------------------------------------------------|:-----------------------------------------|
-|![Window shadow](check_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;| 
-|![Window shadow](check_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putStringIntoRequest**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;| 
-|![Window shadow](check_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Lcom/example/classB;| 
-|![Window shadow](check_icon.png){: w="22" h="22" } | Landroid/content/SharedPreferences$Editor;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;|
+| Source/Sink                                        | Item                                                                                                                                      |
+| :------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Window shadow](check_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;                       |
+| ![Window shadow](check_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putStringIntoRequest**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;            |
+| ![Window shadow](check_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Lcom/example/classB;                                             |
+| ![Window shadow](check_icon.png){: w="22" h="22" } | Landroid/content/SharedPreferences$Editor;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor; |
 
 Let's try to be more efficient. When you define a constraint, you have more options:
 - *signature* : specify a regex to fully match the full signature of the target method.
@@ -185,12 +185,12 @@ The JSON definition of our model has been increased a bit. Let me give you some 
 
 After tuning, we can say we achieved our goal of minimizing false positives. We are now sure that we have defined a model that handles the methods held by the proper classes.
 
-| Source/Sink                                                                                     | Item                                    |
-|:--------------------------------------------------------------------------|:-----------------------------------------|
-|![Window shadow](uncheck_icon.png){: w="22" h="22" }| Lcom/example/classA;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;| 
-|![Window shadow](uncheck_icon.png){: w="22" h="22" }| Lcom/example/classA;.**putStringIntoRequest**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;| 
-|![Window shadow](uncheck_icon.png){: w="22" h="22" }| Lcom/example/classA;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Lcom/example/classB;| 
-|![Window shadow](check_icon.png){: w="22" h="22" }| Landroid/content/SharedPreferences$Editor;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;|
+| Source/Sink                                          | Item                                                                                                                                      |
+| :--------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Window shadow](uncheck_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;                       |
+| ![Window shadow](uncheck_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putStringIntoRequest**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;            |
+| ![Window shadow](uncheck_icon.png){: w="22" h="22" } | Lcom/example/classA;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Lcom/example/classB;                                             |
+| ![Window shadow](check_icon.png){: w="22" h="22" }   | Landroid/content/SharedPreferences$Editor;.**putString**:(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor; |
 
 ##### Spoiler
 In the next episode, we will focus on the SAPP UI to better understand what we can achieve along with it that cannot be with Mariana itself. Additionally, we will backtrack on [Step 2](/posts/mariana_trench/#step-2) and [Step 3](/posts/mariana_trench/#step-3) to generate the necessary rules to complete the first challenge of the Ovaa application with minimal effort and without having to go deeper into the source code to spot the issue.

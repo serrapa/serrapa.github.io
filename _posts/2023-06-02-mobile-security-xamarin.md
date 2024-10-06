@@ -5,7 +5,7 @@ date: 9999-01-02 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
-img_path: /images/mobile-security-fighting-with-frameworks
+media_subpath: /images/mobile-security-fighting-with-frameworks
 image:
   path: /xamarin/
 ---
@@ -23,13 +23,13 @@ Episode of [Fighting with Frameworks](/posts/mobile-security-fighting-with-frame
 
 Xamarin, which is a Microsoft product, provides a single platform to develop one application for multiple platforms with **.NET** and **C#** – iOS and Android in most cases. As it is a framework, it likes getting us more frustrated, but how? Simply ignoring system proxy settings by default. Additionally, Microsoft has already implemented secure coding practices in the Xamarin framework. As such, applications developed with this framework inherit these security controls (uff..). This makes Xamarin–based applications arguably more secure than applications developed from scratch using traditional or no frameworks. Since Xamarin has full access to native APIs and toolkits used by both iOS and Android applications, it doesn't only save developers time in building and maintaining the application, but also help them in achieving near-native look and performance.
 
-|                                           | Xamarin                                                    |
-|:------------------------------|:-----------------------------------------|
-|**Code**                             |C#    |
-|**Compilation iOS**          |AOT                              |
-|**Compilation Android**  |JIT/AOT                                                        |
-|**UI Rendering**               |Native Design Elements                                           |
-|**UI Engineering**            |Native / Code Sharing for the cost of native experience   |
+|                         | Xamarin                                                 |
+| :---------------------- | :------------------------------------------------------ |
+| **Code**                | C#                                                      |
+| **Compilation iOS**     | AOT                                                     |
+| **Compilation Android** | JIT/AOT                                                 |
+| **UI Rendering**        | Native Design Elements                                  |
+| **UI Engineering**      | Native / Code Sharing for the cost of native experience |
 
 ### Detecting app
 
@@ -37,13 +37,13 @@ Android
 : It is rather simple to determine whether an Android app was created with Xamarin or not. There is a lot of data inside the apk structure (**apktool** is your friend), but the directory holding the assemblies is what we need.. In fact, going there you will find certain assemblies related to the Mono engine, a free and open-source .NET Framework-compatible software framework now being led by Xamarin that can be run on many software systems.
 Let's see some examples:
 
-|Assembly             |Description                                                                   |
-|:--------------------|:-----------------------------------------------------------------------------|
-|*mscorlib.dll*         |Silverlight                          |
-|*Mono.Android.dll*     |This assembly contains the C# bindings to the Android API                     |
-|*Mono.Security.dll*    |Cryptographic APIs                    |
-|*System.dll*           |Silverlight, plus types from other namespaces                          |
-|*Xamarin.iOS.dll*      |This assembly contains the C# binding to the CocoaTouch API. This is only used in Unified iOS Projects |
+| Assembly            | Description                                                                                            |
+| :------------------ | :----------------------------------------------------------------------------------------------------- |
+| *mscorlib.dll*      | Silverlight                                                                                            |
+| *Mono.Android.dll*  | This assembly contains the C# bindings to the Android API                                              |
+| *Mono.Security.dll* | Cryptographic APIs                                                                                     |
+| *System.dll*        | Silverlight, plus types from other namespaces                                                          |
+| *Xamarin.iOS.dll*   | This assembly contains the C# binding to the CocoaTouch API. This is only used in Unified iOS Projects |
 
 Anyway, [here](https://docs.microsoft.com/en-us/xamarin/cross-platform/internals/available-assemblies) you can find a list of all available assemblies with their details.
 

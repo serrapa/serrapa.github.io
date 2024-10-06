@@ -1,11 +1,11 @@
 ---
 title: Mobile Security - Fighting with Frameworks - React Native
 author: Paolo Serra
-date: 9999-02-06 10:00:00
+date: 9999-10-06 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
-img_path: /images/mobile-security-fighting-with-frameworks
+media_subpath: /images/mobile-security-fighting-with-frameworks
 image:
   path: /react-native/wallpaper.jpeg
 ---
@@ -24,13 +24,13 @@ React Native is a cross-platform framework that allows the development of mobile
 
 The native app executes JavaScript code with the native or custom JavaScript engine in a separate thread. Native JS engine uses the source code stored in the `.jsbundle`{: .filepath} file, while custom JS engines can have various behaviours.
 
-|                                           | React Native                                     |
-|:------------------------------|:-----------------------------------------|
-|**Code**                             |(Javascript/Typescript)  + (Java / Objective-C / Swift) |
-|**Compilation iOS**          |JIT (with JavaScriptCore, until iOS 6)  or ATO (with Hermes)     |
-|**Compilation Android**  |JIT (with JavaScriptCore) or ATO (with Hermes)               |
-|**UI Rendering**               |Native UI Controllers                      |
-|**UI Engineering**            |Customization with built-in UI components |
+|                         | React Native                                                 |
+| :---------------------- | :----------------------------------------------------------- |
+| **Code**                | (Javascript/Typescript)  + (Java / Objective-C / Swift)      |
+| **Compilation iOS**     | JIT (with JavaScriptCore, until iOS 6)  or ATO (with Hermes) |
+| **Compilation Android** | JIT (with JavaScriptCore) or ATO (with Hermes)               |
+| **UI Rendering**        | Native UI Controllers                                        |
+| **UI Engineering**      | Customization with built-in UI components                    |
 
 *The compilation is a little bit complicated, because there are many options. Generally, you will see Hermes in action, but keep in mind that also the v8 engine is used (when debugging with Chrome)*
 
@@ -47,7 +47,7 @@ iOS
 : - `index.ios.bundle` or `main.jsbundle`: a **minified** javascript file in the the `Payload`{: .filepath} directory inside the app folder TODO
 - inside the `assets`{: .filepath} directory there might be some references to React, for example ***node_modules/@react-navigation*** or ***node_modules/@react-native-****
 
->*the **bundle** file: it's the "Javascript". In development the bundle likely will come from your *react-native start* development server. That way if your code is changed the server will send a request to the client, through a websocket, to download the new code or update the code on the fly. So, you could say the bundle is dynamically generated from your source code. In production you probably want to use an offline bundle so that your code is already on the device and does not need to be downloaded. [Cit.](https://stackoverflow.com/questions/41960891/what-is-react-natives-bundle-and-its-purpose)
+>*the **bundle** file is the "Javascript". In development the bundle likely will come from your react-native start development server. That way if your code is changed the server will send a request to the client, through a websocket, to download the new code or update the code on the fly. So, you could say the bundle is dynamically generated from your source code. In production you probably want to use an offline bundle so that your code is already on the device and does not need to be downloaded. [Cit.](https://stackoverflow.com/questions/41960891/what-is-react-natives-bundle-and-its-purpose)*
 
 ### Intercepting Traffic
 
@@ -57,18 +57,18 @@ Android
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use ***Bettercap*** to set up an ARP Poisoning attack
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use ***NoPE Proxy*** (Burp extension) to carry on a DNS Spoofing attack
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  set up an Access Point and connect the iOS device to it
-- ![](device_rooted.png){: .shadow width="35" height="35" }  use ProxyDroid App
-- ![](device_rooted.png){: .shadow width="35" height="35" }  in case of “client isolation” activated in the Wireless network and the iOS device and your laptop are not able to communicate: use SSH remote port forwarding
+- ![](device_rooted.png){: .shadow width="35" height="35" }  use **ProxyDroid** app
+- ![](device_rooted.png){: .shadow width="35" height="35" }  in case of **client isolation** enabled in the network and the Android device and your laptop are not able to communicate: use SSH remote port forwarding
 - ![](device_rooted.png){: .shadow width="35" height="35" } use the `/etc/hosts`{: .filepath} file to make the target domain point to the IP address of your interception proxy.
 
 
 iOS
 : - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use the local proxy settings (WiFi settings)
-- ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  set up a VPN Server and implement the IPTables rules to forward all incoming traffic on 80 and 443 ports to the proxy host and port. Lastly, download OpenVPN Client on the device
+- ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  set up a VPN Server and implement the IPTables rules to forward all incoming traffic on 80 and 443 ports to the proxy host and port. Lastly, download OpenVPN Client on the device.
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use ***Bettercap*** to set up an ARP Poisoning attack
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  use ***NoPE Proxy*** (Burp extension) to carry on a DNS Spoofing attack
 - ![](device_rooted.png){: .shadow width="35" height="35" } ![](device.png){: .shadow width="35" height="35" }  set up an Access Point and connect the iOS device to it
-- ![](device_rooted.png){: .shadow width="35" height="35" }  in case of “client isolation” activated in the Wireless network and the iOS device and your laptop are not able to communicate: use SSH remote port forwarding
+- ![](device_rooted.png){: .shadow width="35" height="35" }  in case of **client isolation** enabled in the network and the iOS device and your laptop are not able to communicate: use SSH remote port forwarding
 - ![](device_rooted.png){: .shadow width="35" height="35" } use the `/etc/hosts`{: .filepath} file to make the target domain point to the IP address of your interception proxy.
 
 ### Certificate Pinning
@@ -108,15 +108,16 @@ iOS
 
 
 ### Reverse Engineering
-Reverse engineering of React Native mobile applications involves analyzing the compiled code to understand its structure and functions. It can be performed on both debug and release mode builds, although reverse engineering a release mode build is often more challenging because it is obfuscated and optimized.
-To reverse a React Native app, first, we need to know how the framework works and what javascript engine it uses. When using React, you have two options:
+Reverse engineering of React Native mobile applications involves analyzing the compiled code to understand its structure and functions. It can be performed on both debug and release mode builds, although reverse engineering a release mode build is often more challenging because it is obfuscated, minimized and optimized. First, reversing a React Native app required to know how the framework works and which javascript engine has been used:
 
 - [Hermes](https://hermesengine.dev/): it is a JavaScript engine developed by Facebook that is optimized for running React Native apps on Android and iOS devices. Starting from React Native 0.70, it is enabled by default. Since React Native 0.64, Hermes also runs on iOS.
 
 - [JavaScriptCore](https://trac.webkit.org/wiki/JavaScriptCore):  it is the built-in JavaScript engine for WebKit, the web browser engine used by Safari, Mail, App Store, and many other apps on macOS, iOS, and Linux. On iOS 7+, JavaScriptCore does not use JIT due to the absence of writable executable memory in iOS apps.
 
+- [v8](https://v8.dev/):  it is the JavaScript engine used when debugging via Chrome. All JS code runs within Chrome itself, communicating with native code via WebSockets.
+
 ##### Hermes vs JavaScriptCore
-The main difference between JavaScriptCore and Hermes is the optimizations they provide for their respective platforms. JavaScriptCore is optimized for running JavaScript code within the WebKit framework, while Hermes is optimized for running React Native apps on Android. Additionally, Hermes includes many performance improvements over other JavaScript engines, including faster startup time, smaller app size, and improved memory usage.
+The main difference between JavaScriptCore and Hermes is the optimizations they provide for their respective platforms. JavaScriptCore is optimized for running JavaScript code within the WebKit framework, while Hermes is optimized for running React Native apps on Android and iOS. Additionally, Hermes includes many performance improvements over other JavaScript engines, including faster startup time, smaller app size, and improved memory usage.
 
 
 ##### Hermes Reverse Engineering

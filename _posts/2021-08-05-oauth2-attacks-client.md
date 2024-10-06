@@ -5,7 +5,7 @@ date: 9999-08-03 10:00:00
 categories: [Topic, OAuth2]
 toc: true
 author: paoloserra
-img_path: /images/
+media_subpath: /images/
 image:
   src: wallpapers/jujutsukaisen.jpeg
 ---
@@ -33,27 +33,27 @@ The typical scenario for this attack requires that the target website allows use
 *1° Scenario*
 : Register a new account with the victim's email on the target website. From this time, you own the credentials but still not the account takeover, because an email verification will be probably required. When the victim registers himself by using OAuth (with Facebook or Google, for example), this authorization will bypass the verification required and you will have another way to log in with the victim's account.
 
-| Functional Requirements             |
-|:------------------------------------|
-| Multiple Authentication Methods     |
+| Functional Requirements         |
+| :------------------------------ |
+| Multiple Authentication Methods |
 
 
 *2° Scenario*
 : First of all, this scenario depends on how the website manages the linking process. It might use IDs parameters, xxx or yyy. What I can suggest, it's seeing the workflow and trying to find out if the process is flawed. For example, if IDs are used to tie the third-party profile to the account, try changing them with the victim's id, thus the victim will have his account tied to the attacker's account.
 
-| Functional Requirements             |
-|:------------------------------------|
-| Link a third-party Account in the profile page        |
+| Functional Requirements                        |
+| :--------------------------------------------- |
+| Link a third-party Account in the profile page |
 
 
 
 *3° Scenario*
 : Register a new account on the OAuth Provider with the victim’s email (even if email verification is required), then log in to the target website via OAuth with the account just created (with the victim’s email) and see what the target website does. Obviously, the victim must have already a registered account on the website and signed up via email. If you’re lucky, it logs you in the victim's account.
 
-| Functional Requirements             |
-|:------------------------------------|
-| The victim signed up by email |
-| The victim doesn't have an account on the Authorization Server  |
+| Functional Requirements                                        |
+| :------------------------------------------------------------- |
+| The victim signed up by email                                  |
+| The victim doesn't have an account on the Authorization Server |
 
 ### Defence
 
@@ -179,11 +179,11 @@ Check that the access token matches the other data in the request and tie it to 
 
 ## Token Hijacking
 
-| Limitation                          |
-|:------------------------------------|
-| Only tested for Facebook            |
-| Need to have access to the token    |
-| Need to have an external app that uses the same OAuth Provider    |
+| Limitation                                                     |
+| :------------------------------------------------------------- |
+| Only tested for Facebook                                       |
+| Need to have access to the token                               |
+| Need to have an external app that uses the same OAuth Provider |
 
 From Facebook Documentation:
 > To understand how this happens, imagine a native iOS app that wants to make API calls, but instead of doing it directly, communicates with a server owned by the same app and passes that server a token generated using the iOS SDK. The server would then use the token to make API calls. The endpoint that the server uses to receive the token could be compromised and others could pass access tokens for completely different apps to it. This would be obviously insecure

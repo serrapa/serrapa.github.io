@@ -5,7 +5,7 @@ date: 2022-09-07 10:00:00
 categories: [Mobile Security, Mariana Trench]
 toc: true
 author: paoloserra
-img_path: /images/mariana-trench/part_1
+media_subpath: /images/mariana-trench/part_1
 image:
   path: wallpaper.jpeg
 ---
@@ -224,15 +224,15 @@ At this point, we can decide which flow we are more interested in:
 
 Let's start with the first one. At the moment, Facebook already offers some default sources and sinks with the corresponding ***kind*** (listed in the table below), but none of them concerns a model that deals with input from deep links. For this reason, we are going to create one that fits with the source and sink we are looking for.
 
-| Kind (Sources) | Kind (Sinks) |
-|:--- |:----|
-|ActivityUserInput        | LaunchingComponent|
-|FragmentUserInput    |CodeExecution|
-|ReceiverUserInput      |FileResolver|
-|IntentCreation             |InputStream|
-|SensitiveCookieData    |SQLQuery|
-|ProviderUserInput      |SQLMutation|
-|ServiceUserInput       |WebView|
+| Kind (Sources)      | Kind (Sinks)       |
+| :------------------ | :----------------- |
+| ActivityUserInput   | LaunchingComponent |
+| FragmentUserInput   | CodeExecution      |
+| ReceiverUserInput   | FileResolver       |
+| IntentCreation      | InputStream        |
+| SensitiveCookieData | SQLQuery           |
+| ProviderUserInput   | SQLMutation        |
+| ServiceUserInput    | WebView            |
 
 
 We have to create our source and sink. The following is a basic structure of the JSON file for writing a model:

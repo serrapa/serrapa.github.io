@@ -5,7 +5,7 @@ date: 2024-02-01 10:00:00
 categories: [Web Security]
 toc: true
 author: paoloserra
-img_path: /images/citrix-adc/
+media_subpath: /images/citrix-adc/
 image:
   path: wallpaper.webp
   width: 100%

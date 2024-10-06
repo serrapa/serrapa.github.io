@@ -5,7 +5,7 @@ date: 9999-01-02 10:00:00
 categories: [Topic, Mobile Security]
 toc: true
 author: paoloserra
-img_path: /images/mobile-security-fighting-with-frameworks
+media_subpath: /images/mobile-security-fighting-with-frameworks
 image:
   path:  /flutter/wallpaper.jpeg
 ---
@@ -23,13 +23,13 @@ Episode of [Fighting with Frameworks](/posts/mobile-security-fighting-with-frame
 
 Flutter is Google’s new open source mobile development framework that allows developers to write a single code base and build for Android, iOS, web and desktop. Flutter applications are written in Dart, a language created by Google more than 7 years ago. Do you think is different from Xamarin? No boy, it is also worse! If Xamarin ignores local proxy settings at least, Flutter (actually Dart) doesn’t use the system CA store (and neither system’s proxy settings) but a list of CA’s that’s compiled in the application!
 
-|                                           | Flutter                                        |
-|:------------------------------|:------------------------------------------|
-|**Code**                             | Dart  / C + C++ (Graphic Engine) |
-|**Compilation iOS**          | AOT (production) / JIT (development)    |
-|**Compilation Android**  | AOT  (production) / JIT (development)   |
-|**UI Rendering**               | Native Design Elements                             |
-|**UI Engineering**            | Native  |
+|                         | Flutter                               |
+| :---------------------- | :------------------------------------ |
+| **Code**                | Dart  / C + C++ (Graphic Engine)      |
+| **Compilation iOS**     | AOT (production) / JIT (development)  |
+| **Compilation Android** | AOT  (production) / JIT (development) |
+| **UI Rendering**        | Native Design Elements                |
+| **UI Engineering**      | Native                                |
 
 ### Detecting app
 All applications developed in Flutter have some fingerprints that render themselves easy to recognize.

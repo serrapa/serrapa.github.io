@@ -5,7 +5,7 @@ date: 9999-01-01 10:00:00
 categories: [Mobile Security, Mariana Trench]
 toc: true
 author: paoloserra
-img_path: /images/mariana-trench/part_3
+media_subpath: /images/mariana-trench/part_3
 image:
   path: wallpaper.jpeg
 ---

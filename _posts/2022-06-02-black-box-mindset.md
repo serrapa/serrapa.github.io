@@ -5,7 +5,7 @@ date: 9999-06-02 10:00:00
 categories: [Topic, Mindset]
 toc: true
 author: paoloserra
-img_path: /images/black-box-mindset
+media_subpath: /images/black-box-mindset
 image:
   path: wallpaper.jpg
 ---

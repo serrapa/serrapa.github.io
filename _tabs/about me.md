@@ -2,7 +2,7 @@
 # the default layout is 'page'
 icon: fas fa-info-circle
 order: 4
-img_path: /images/about
+media_subpath: /images/about
 ---
 [![OSCP](oscp.png){: .shadow .normal width="42" height="42" }](https://www.credential.net/bf4f0eda-eb43-4fde-b123-58da42e548a6#gs.4lkf5l)
 [![giac-advisory-board](giac-advisory-board.png){: .shadow .normal width="42" height="42" }](https://www.credly.com/badges/3f2d7e49-1984-4c1f-9778-9f3bfd7c06ad/public_url)
